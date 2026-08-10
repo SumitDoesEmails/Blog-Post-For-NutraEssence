@@ -36,7 +36,19 @@
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+
+    /* Breakout: Shopify's article template wraps post content in its own
+       narrow column, so a % width here would just be a % of that narrow
+       box. This escapes it and re-centers on the true viewport width. */
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
   }
+  /* Belt-and-suspenders for the 100vw/scrollbar-width edge case some browsers have */
+  html, body { overflow-x: hidden; }
 
   .necs img, .necs svg { max-width: 100%; display: block; }
   .necs a { color: inherit; }
@@ -56,8 +68,8 @@
 
   /* ── Blog Container ── */
   .necs .blog-container {
-    width: 70%;
-    max-width: 1200px;
+    width: 80%;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 40px 24px 80px;
   }
