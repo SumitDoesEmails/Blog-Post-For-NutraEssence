@@ -35,15 +35,27 @@
     background: var(--necs-white);
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
+
+    /* Breakout: Shopify's article template wraps post content in its own
+       narrow column, so a % width here would just be a % of that narrow
+       box. This escapes it and re-centers on the true viewport width. */
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
   }
+  /* Belt-and-suspenders for the 100vw/scrollbar-width edge case some browsers have */
+  html, body { overflow-x: hidden; }
 
   /* ── Layout ── */
-  .necs .necs-blog { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .necs .necs-blog { width: 80%; max-width: 1400px; margin: 0 auto; padding: 0 24px; }
 
   /* ── Hero ── */
   .necs .necs-hero {
     position: relative;
-    width: 100%; max-width: 720px; margin: 0 auto;
+    width: 80%; max-width: 1400px; margin: 0 auto;
     aspect-ratio: 16/9;
     border-radius: 0 0 12px 12px;
     overflow: hidden;
@@ -232,9 +244,16 @@
     line-height: 1.5; padding: 20px 0; border-top: 1px solid var(--necs-border); margin-top: 32px;
   }
 
+  /* ── Tablet ── */
+  @media (max-width: 900px) {
+    .necs .necs-blog { width: 92%; max-width: 100%; }
+    .necs .necs-hero { width: 92%; max-width: 100%; }
+  }
+
   /* ── Mobile ── */
   @media (max-width: 640px) {
-    .necs .necs-blog { padding: 0 16px; }
+    .necs .necs-blog { width: 100%; padding: 0 16px; }
+    .necs .necs-hero { width: 100%; }
     .necs .necs-meta h1 { font-size: 28px; }
     .necs .necs-section h2 { font-size: 22px; }
     .necs .necs-qr-grid { grid-template-columns: repeat(2, 1fr); }
