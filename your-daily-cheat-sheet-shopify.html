@@ -1,957 +1,502 @@
 <!--
   SHOPIFY BLOG POST VERSION — paste this whole block into the blog post's
-  HTML source editor (see instructions in the chat). This does NOT include
-  a top bar / header / footer — your theme already provides those, so this
-  starts right at the hero image and ends at the disclaimer.
-  All CSS is scoped under .necs so it can't leak into the rest of your theme.
+  HTML source editor. This does NOT include a top bar / header / footer —
+  your theme already provides those, so this starts right at the hero
+  image and ends at the disclaimer. All CSS is scoped under .necs so it
+  can't leak into the rest of your theme.
 -->
 <div class="necs">
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
 
   .necs, .necs * { box-sizing: border-box; }
-  .necs ul, .necs ol, .necs h1, .necs h2, .necs h3, .necs h4, .necs p, .necs div { margin: 0; padding: 0; }
+  .necs ul, .necs ol, .necs h1, .necs h2, .necs h3, .necs p, .necs div { margin: 0; padding: 0; }
 
   .necs {
-    --ne-black: #1a1a1a;
-    --ne-dark: #2c2c2c;
-    --ne-body: #3d3d3d;
-    --ne-muted: #6b6b6b;
-    --ne-border: #e2e0dc;
-    --ne-light: #f7f6f3;
-    --ne-cream: #faf9f6;
-    --ne-white: #ffffff;
-    --ne-accent: #CC4B18;
-    --ne-accent-dark: #A33C13;
-    --ne-accent-light: #FFEFEA;
-    --ne-warm: #8b6f4e;
-    --ne-warm-light: #f5f0ea;
-    --ne-coral: #c2715e;
-    --ne-coral-light: #fdf5f3;
+    --necs-black: #1a1a1a;
+    --necs-dark: #2c2c2c;
+    --necs-body: #3d3d3d;
+    --necs-muted: #6b6b6b;
+    --necs-border: #e2e0dc;
+    --necs-light: #f7f6f3;
+    --necs-cream: #faf9f6;
+    --necs-white: #fff;
+    --necs-accent: #5a7247;
+    --necs-accent-light: #eef2eb;
+    --necs-warm: #8b6f4e;
+    --necs-warm-light: #f5f0ea;
+    --necs-orange: #c45a2d;
+    --necs-orange-light: #fdf3ef;
+    --necs-coral: #c2715e;
 
-    font-family: 'Poppins', -apple-system, sans-serif;
-    color: var(--ne-body);
-    background: var(--ne-white);
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--necs-body);
+    background: var(--necs-white);
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
+  }
 
-    /* Breakout: Shopify's article template wraps post content in its own
-       narrow column, so a % width here would just be a % of that narrow
-       box. This escapes it and re-centers on the true viewport width. */
-    width: 100vw;
+  /* ── Layout ── */
+  .necs .necs-blog { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── Hero ── */
+  .necs .necs-hero {
     position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-  }
-  /* Belt-and-suspenders for the 100vw/scrollbar-width edge case some browsers have */
-  html, body { overflow-x: hidden; }
-
-  .necs img, .necs svg { max-width: 100%; display: block; }
-  .necs a { color: inherit; }
-
-  /* ── Hero Banner ── */
-  .necs .hero-banner {
-    background: radial-gradient(ellipse at center, var(--ne-accent-light) 0%, var(--ne-cream) 70%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 36px 20px;
-  }
-  .necs .hero-bottle {
-    width: 168px;
-    filter: drop-shadow(0 18px 26px rgba(26, 26, 26, 0.10));
-  }
-
-  /* ── Blog Container ── */
-  .necs .blog-container {
-    width: 80%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 40px 24px 80px;
-  }
-
-  /* ── Blog Meta ── */
-  .necs .blog-meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    color: var(--ne-muted);
-    margin-bottom: 12px;
-    letter-spacing: 0.02em;
-  }
-  .necs .blog-meta .necs-tag {
-    background: var(--ne-accent-light);
-    color: var(--ne-accent);
-    padding: 3px 10px;
-    border-radius: 3px;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-  .necs .blog-meta .necs-dot { color: var(--ne-border); }
-
-  /* ── Title ── */
-  .necs .blog-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 40px;
-    font-weight: 600;
-    color: var(--ne-black);
-    line-height: 1.2;
-    margin-bottom: 16px;
-  }
-  .necs .blog-subtitle {
-    font-size: 17px;
-    color: var(--ne-muted);
-    line-height: 1.6;
-    margin-bottom: 32px;
-  }
-
-  /* ── Read Time Bar ── */
-  .necs .read-bar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 14px 0;
-    border-top: 1px solid var(--ne-border);
-    border-bottom: 1px solid var(--ne-border);
-    margin-bottom: 40px;
-    font-size: 13px;
-    color: var(--ne-muted);
-  }
-  .necs .read-bar span { font-weight: 500; color: var(--ne-dark); }
-
-  /* ── TOC ── */
-  .necs .toc {
-    background: var(--ne-light);
-    border-radius: 8px;
-    padding: 28px 28px 24px;
-    margin-bottom: 48px;
-  }
-  .necs .toc-label {
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--ne-muted);
-    margin-bottom: 16px;
-  }
-  .necs .toc ol {
-    list-style: none;
-    counter-reset: toc;
-  }
-  .necs .toc li {
-    counter-increment: toc;
-    padding: 6px 0;
-    font-size: 15px;
-    color: var(--ne-dark);
-  }
-  .necs .toc a {
-    text-decoration: none;
-    color: inherit;
-  }
-  .necs .toc li::before {
-    content: counter(toc);
-    display: inline-block;
-    width: 22px;
-    height: 22px;
-    line-height: 22px;
-    text-align: center;
-    background: var(--ne-accent-light);
-    color: var(--ne-accent);
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 600;
-    margin-right: 12px;
-  }
-
-  /* ── Intro ── */
-  .necs .intro {
-    font-size: 16px;
-    line-height: 1.8;
-    margin-bottom: 48px;
-    color: var(--ne-body);
-  }
-  .necs .intro p { margin: 0; }
-
-  /* ── Section ── */
-  .necs .section {
-    margin-bottom: 56px;
-    scroll-margin-top: 90px;
-  }
-  .necs .section-eyebrow {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--ne-accent);
-    margin-bottom: 8px;
-  }
-  .necs .section-heading {
-    font-family: 'Poppins', sans-serif;
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--ne-black);
-    line-height: 1.3;
-    margin-bottom: 16px;
-  }
-  .necs .section-lead {
-    font-size: 16px;
-    color: var(--ne-body);
-    margin-bottom: 24px;
-    line-height: 1.7;
-  }
-
-  /* ── Cheat Checklist ── */
-  .necs .checklist {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .necs .checklist li {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--ne-border);
-    font-size: 15px;
-    line-height: 1.6;
-  }
-  .necs .checklist li:last-child { border-bottom: none; }
-  .necs .checklist .check-icon {
-    flex-shrink: 0;
-    width: 22px;
-    height: 22px;
-    background: var(--ne-accent);
-    color: var(--ne-white);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .necs .checklist .check-icon svg { width: 12px; height: 12px; }
-
-  /* ── Time Cards ── */
-  .necs .time-card {
-    border: 1px solid var(--ne-border);
-    border-radius: 10px;
+    width: 100%; max-width: 720px; margin: 0 auto;
+    aspect-ratio: 16/9;
+    border-radius: 0 0 12px 12px;
     overflow: hidden;
-    margin-bottom: 20px;
+    background: var(--necs-light);
+    display: flex; align-items: center; justify-content: center;
   }
-  .necs .time-card-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 16px 20px;
-    background: var(--ne-light);
-    border-bottom: 1px solid var(--ne-border);
+  .necs .necs-hero img { width: 100%; height: 100%; object-fit: cover; }
+  .necs .necs-hero .necs-placeholder {
+    text-align: center; padding: 20px;
+    font-size: 13px; color: var(--necs-muted);
+    border: 2px dashed var(--necs-border);
+    border-radius: 8px; margin: 20px;
   }
-  .necs .time-icon {
-    flex-shrink: 0;
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .necs .time-icon svg { width: 19px; height: 19px; }
-  .necs .time-icon.morning { background: #fef3e2; color: #b8792f; }
-  .necs .time-icon.day { background: #e8f4fd; color: #2e78ad; }
-  .necs .time-icon.evening { background: #f0eafd; color: #6f4fc4; }
-  .necs .time-icon.avoid { background: var(--ne-coral-light); color: var(--ne-coral); }
-  .necs .time-label {
-    font-weight: 600;
-    font-size: 16px;
-    color: var(--ne-black);
-  }
-  .necs .time-sub {
-    font-size: 13px;
-    color: var(--ne-muted);
-  }
-  .necs .time-card-body {
-    padding: 20px;
-  }
-  .necs .time-card-body .point-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .necs .time-card-body .point-list li {
-    position: relative;
-    padding: 8px 0 8px 20px;
-    font-size: 15px;
-    line-height: 1.65;
-    color: var(--ne-body);
-  }
-  .necs .time-card-body .point-list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 16px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--ne-accent);
-  }
-  .necs .time-card-body .point-list li strong {
-    color: var(--ne-black);
-    font-weight: 600;
-  }
+  .necs .necs-placeholder .necs-label { font-weight: 700; color: var(--necs-dark); font-size: 14px; margin-bottom: 4px; }
 
-  /* ── Avoid Card (red variant) ── */
-  .necs .time-card.avoid-card .point-list li::before {
-    background: var(--ne-coral);
-  }
-
-  /* ── Callout Box ── */
-  .necs .callout {
-    background: var(--ne-accent-light);
-    border-left: 3px solid var(--ne-accent);
-    padding: 20px 24px;
-    border-radius: 0 8px 8px 0;
-    margin: 28px 0;
-    font-size: 15px;
-    line-height: 1.7;
-    color: var(--ne-dark);
-  }
-  .necs .callout strong { color: var(--ne-black); }
-
-  .necs .callout-warm {
-    background: var(--ne-warm-light);
-    border-left-color: var(--ne-warm);
-  }
-
-  /* ── Week Timeline ── */
-  .necs .week-timeline {
-    margin: 24px 0;
-  }
-  .necs .week-row {
-    display: flex;
-    gap: 16px;
-    padding: 18px 0;
-    border-bottom: 1px solid var(--ne-border);
-    align-items: flex-start;
-  }
-  .necs .week-row:last-child { border-bottom: none; }
-  .necs .week-badge {
-    flex-shrink: 0;
-    width: 72px;
-    height: 32px;
-    background: var(--ne-accent-light);
-    color: var(--ne-accent);
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-  .necs .week-content {
-    flex: 1;
-  }
-  .necs .week-content h4 {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--ne-black);
-    margin-bottom: 4px;
-  }
-  .necs .week-content p {
-    font-size: 14px;
-    color: var(--ne-muted);
-    line-height: 1.6;
-  }
-
-  /* ── Quick Reference Box ── */
-  .necs .quick-ref {
-    background: var(--ne-light);
-    border-radius: 10px;
-    padding: 28px;
-    margin: 32px 0;
-  }
-  .necs .quick-ref-title {
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--ne-accent);
-    margin-bottom: 16px;
-  }
-  .necs .quick-ref-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-  .necs .qr-item {
-    background: var(--ne-white);
-    border-radius: 8px;
-    padding: 16px;
-    text-align: center;
-  }
-  .necs .qr-item .qr-num {
-    font-family: 'Poppins', sans-serif;
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--ne-accent);
-    display: block;
-  }
-  .necs .qr-item .qr-label {
-    font-size: 12px;
-    color: var(--ne-muted);
-    margin-top: 4px;
-    line-height: 1.4;
-  }
-
-  /* ── CTA Block ── */
-  .necs .cta-block {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    text-align: left;
-    padding: 44px;
-    background: var(--ne-light);
-    border-radius: 12px;
-    margin: 48px 0;
-  }
-  .necs .cta-visual { flex-shrink: 0; }
-  .necs .cta-visual svg {
-    width: 128px;
-    filter: drop-shadow(0 14px 20px rgba(26, 26, 26, 0.10));
-  }
-  .necs .cta-content { flex: 1; min-width: 0; }
-  .necs .cta-block h3 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--ne-black);
+  /* ── Meta ── */
+  .necs .necs-meta { padding: 32px 0 0; }
+  .necs .necs-meta .necs-tag {
+    display: inline-block;
+    background: var(--necs-accent-light); color: var(--necs-accent);
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; padding: 4px 10px; border-radius: 3px;
     margin-bottom: 12px;
   }
-  .necs .cta-block p {
-    font-size: 15px;
-    color: var(--ne-muted);
-    margin-bottom: 24px;
-    line-height: 1.6;
+  .necs .necs-meta h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px; font-weight: 600; color: var(--necs-black); line-height: 1.15;
+    margin-bottom: 12px;
   }
-  .necs .cta-btn {
-    display: inline-block;
-    background: var(--ne-accent);
-    color: var(--ne-white);
-    padding: 14px 36px;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: background 0.2s;
-  }
-  .necs .cta-btn:hover { background: var(--ne-accent-dark); }
-
-  .necs .cta-sub {
-    font-size: 12px;
-    color: var(--ne-muted);
-    margin-top: 12px;
-  }
+  .necs .necs-meta .necs-sub { font-size: 16px; color: var(--necs-muted); line-height: 1.6; margin-bottom: 24px; }
 
   /* ── Divider ── */
-  .necs .divider {
-    border: none;
-    border-top: 1px solid var(--ne-border);
-    margin: 48px 0;
+  .necs hr.necs-div { border: none; border-top: 1px solid var(--necs-border); margin: 40px 0; }
+
+  /* ── Section ── */
+  .necs .necs-section { margin-bottom: 48px; }
+  .necs .necs-section-num {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--necs-accent); margin-bottom: 6px;
+  }
+  .necs .necs-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px; font-weight: 600; color: var(--necs-black); line-height: 1.25;
+    margin-bottom: 8px;
+  }
+  .necs .necs-section .necs-lead { font-size: 15px; color: var(--necs-muted); margin-bottom: 20px; }
+
+  /* ── Section Image ── */
+  .necs .necs-section-img {
+    width: 100%; border-radius: 10px; overflow: hidden;
+    margin-bottom: 20px; background: var(--necs-light);
+    aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;
+  }
+  .necs .necs-section-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .necs .necs-section-img .necs-placeholder {
+    text-align: center; padding: 20px; font-size: 13px; color: var(--necs-muted);
+    border: 2px dashed var(--necs-border); border-radius: 8px; margin: 16px; width: calc(100% - 32px);
   }
 
-  /* ── FDA Disclaimer ── */
-  .necs .disclaimer {
-    font-size: 11px;
-    color: var(--ne-muted);
+  /* ── Bullet Points (lean) ── */
+  .necs .necs-points { list-style: none; padding: 0; margin: 0; }
+  .necs .necs-points li {
+    position: relative; padding: 10px 0 10px 22px;
+    font-size: 15px; line-height: 1.6; color: var(--necs-body);
+    border-bottom: 1px solid var(--necs-border);
+  }
+  .necs .necs-points li:last-child { border-bottom: none; }
+  .necs .necs-points li::before {
+    content: ''; position: absolute; left: 0; top: 18px;
+    width: 8px; height: 8px; border-radius: 50%; background: var(--necs-accent);
+  }
+  .necs .necs-points li strong { color: var(--necs-black); font-weight: 600; }
+  .necs .necs-points li u { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--necs-accent); }
+
+  /* ── Avoid points (red dots) ── */
+  .necs .necs-points.necs-avoid li::before { background: var(--necs-coral); }
+
+  /* ── Callout ── */
+  .necs .necs-callout {
+    background: var(--necs-accent-light); border-left: 3px solid var(--necs-accent);
+    padding: 16px 20px; border-radius: 0 8px 8px 0;
+    font-size: 14px; line-height: 1.6; color: var(--necs-dark); margin: 20px 0;
+  }
+  .necs .necs-callout strong { color: var(--necs-black); }
+  .necs .necs-callout.necs-warm { background: var(--necs-warm-light); border-left-color: var(--necs-warm); }
+
+  /* ── Timeline ── */
+  .necs .necs-timeline { margin: 16px 0; }
+  .necs .necs-tl-row {
+    display: flex; gap: 14px; padding: 14px 0;
+    border-bottom: 1px solid var(--necs-border); align-items: flex-start;
+  }
+  .necs .necs-tl-row:last-child { border-bottom: none; }
+  .necs .necs-tl-badge {
+    flex-shrink: 0; min-width: 68px; padding: 0 10px;
+    height: 28px; line-height: 28px; text-align: center;
+    background: var(--necs-accent-light); color: var(--necs-accent);
+    border-radius: 5px; font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.03em;
+  }
+  .necs .necs-tl-text { flex: 1; }
+  .necs .necs-tl-text strong { font-size: 15px; color: var(--necs-black); display: block; margin-bottom: 2px; }
+  .necs .necs-tl-text span { font-size: 13px; color: var(--necs-muted); line-height: 1.5; }
+
+  /* ── Quick Ref Grid ── */
+  .necs .necs-qr-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+    margin: 20px 0;
+  }
+  .necs .necs-qr-card {
+    background: var(--necs-light); border-radius: 10px; padding: 16px 10px;
     text-align: center;
-    line-height: 1.6;
-    padding: 24px 0;
-    border-top: 1px solid var(--ne-border);
-    margin-top: 40px;
   }
-
-  /* ── Mobile Sticky CTA (mobile only) ── */
-  .necs .mobile-sticky-cta {
-    display: none;
+  .necs .necs-qr-card .necs-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px; font-weight: 600; color: var(--necs-accent); display: block;
   }
+  .necs .necs-qr-card .necs-lbl { font-size: 11px; color: var(--necs-muted); margin-top: 2px; line-height: 1.3; }
 
-  /* ── Tablet ── */
-  @media (max-width: 900px) {
-    .necs .blog-container { width: 92%; max-width: 100%; }
-    .necs .cta-block { padding: 32px; gap: 28px; }
+  /* ── Upsell Card ── */
+  .necs .necs-upsell {
+    background: var(--necs-orange-light);
+    border: 1px solid #e8d5cc;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 48px 0 32px;
+  }
+  .necs .necs-upsell-inner { display: flex; gap: 0; }
+  .necs .necs-upsell-img {
+    flex: 0 0 42%; background: var(--necs-light);
+    display: flex; align-items: center; justify-content: center;
+    min-height: 280px;
+  }
+  .necs .necs-upsell-img img { width: 100%; height: 100%; object-fit: cover; }
+  .necs .necs-upsell-img .necs-placeholder {
+    text-align: center; padding: 16px; font-size: 12px; color: var(--necs-muted);
+    border: 2px dashed var(--necs-border); border-radius: 8px; margin: 16px;
+  }
+  .necs .necs-upsell-body {
+    flex: 1; padding: 28px 24px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .necs .necs-upsell-tag {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--necs-orange); margin-bottom: 8px;
+  }
+  .necs .necs-upsell-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 600; color: var(--necs-black); margin-bottom: 10px; line-height: 1.25;
+  }
+  .necs .necs-upsell-body p {
+    font-size: 14px; color: var(--necs-body); line-height: 1.6; margin-bottom: 16px;
+  }
+  .necs .necs-upsell-points { list-style: none; padding: 0; margin: 0 0 20px; }
+  .necs .necs-upsell-points li {
+    font-size: 13px; color: var(--necs-dark); padding: 3px 0; line-height: 1.5;
+  }
+  .necs .necs-upsell-points li::before { content: '✓ '; color: var(--necs-accent); font-weight: 700; }
+
+  /* ── CTA ── */
+  .necs .necs-cta-btn {
+    display: inline-block; background: var(--necs-black); color: var(--necs-white);
+    padding: 13px 32px; border-radius: 6px;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; text-decoration: none;
+  }
+  .necs .necs-cta-btn:hover { background: var(--necs-dark); }
+  .necs .necs-cta-btn.necs-orange { background: var(--necs-orange); }
+  .necs .necs-cta-btn.necs-orange:hover { background: #a8491f; }
+
+  /* ── Main CTA Block ── */
+  .necs .necs-cta-block {
+    text-align: center; padding: 40px 24px;
+    background: var(--necs-light); border-radius: 12px; margin: 40px 0;
+  }
+  .necs .necs-cta-block h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 600; color: var(--necs-black); margin-bottom: 8px;
+  }
+  .necs .necs-cta-block p { font-size: 14px; color: var(--necs-muted); margin-bottom: 20px; line-height: 1.5; }
+  .necs .necs-cta-sub { font-size: 11px; color: var(--necs-muted); margin-top: 10px; }
+
+  /* ── Disclaimer ── */
+  .necs .necs-disclaimer {
+    font-size: 10px; color: var(--necs-muted); text-align: center;
+    line-height: 1.5; padding: 20px 0; border-top: 1px solid var(--necs-border); margin-top: 32px;
   }
 
   /* ── Mobile ── */
   @media (max-width: 640px) {
-    .necs .hero-banner { padding: 24px 20px; }
-    .necs .hero-bottle { width: 112px; }
-    .necs .blog-container { width: 100%; padding: 28px 18px 60px; }
-    .necs .blog-title { font-size: 30px; }
-    .necs .section-heading { font-size: 23px; }
-    .necs .toc { padding: 20px; }
-    .necs .quick-ref-grid { grid-template-columns: 1fr; }
-    .necs .time-card-header { padding: 14px 16px; }
-    .necs .time-card-body { padding: 16px; }
-    .necs .read-bar { flex-wrap: wrap; gap: 12px; }
-    .necs .week-row { flex-direction: column; gap: 8px; }
-    .necs .week-badge { width: auto; padding: 0 12px; }
-    .necs .callout { padding: 16px 18px; }
-    .necs .quick-ref { padding: 20px; }
-    .necs .cta-block {
-      flex-direction: column;
-      text-align: center;
-      padding: 32px 20px;
-    }
-    .necs .cta-visual svg { width: 96px; }
-    .necs .cta-block p { max-width: 340px; margin: 0 auto 24px; }
-
-    /* Sticky mobile shop bar */
-    .necs .mobile-sticky-cta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--ne-white);
-      border-top: 1px solid var(--ne-border);
-      padding: 12px 16px;
-      box-shadow: 0 -6px 20px rgba(26, 26, 26, 0.08);
-      z-index: 50;
-    }
-    .necs .mobile-sticky-cta .msc-text { min-width: 0; }
-    .necs .mobile-sticky-cta strong {
-      display: block;
-      font-size: 13px;
-      color: var(--ne-black);
-      white-space: nowrap;
-    }
-    .necs .mobile-sticky-cta span {
-      display: block;
-      font-size: 11px;
-      color: var(--ne-muted);
-      white-space: nowrap;
-    }
-    .necs .mobile-sticky-cta .msc-btn {
-      flex-shrink: 0;
-      background: var(--ne-accent);
-      color: var(--ne-white);
-      text-decoration: none;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      padding: 11px 20px;
-      border-radius: 6px;
-    }
-    /* keeps the last block of content clear of the fixed bar */
-    .necs .disclaimer { margin-bottom: 70px; }
-  }
-
-  @media (max-width: 360px) {
-    .necs .mobile-sticky-cta span { display: none; }
+    .necs .necs-blog { padding: 0 16px; }
+    .necs .necs-meta h1 { font-size: 28px; }
+    .necs .necs-section h2 { font-size: 22px; }
+    .necs .necs-qr-grid { grid-template-columns: repeat(2, 1fr); }
+    .necs .necs-upsell-inner { flex-direction: column; }
+    .necs .necs-upsell-img { flex: none; min-height: 200px; }
+    .necs .necs-upsell-body { padding: 20px 18px; }
+    .necs .necs-tl-row { flex-direction: column; gap: 6px; }
+    .necs .necs-tl-badge { min-width: auto; display: inline-block; }
   }
 </style>
 
-<!-- Hidden SVG sprite: reusable icons + product illustration -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <linearGradient id="necs-bottleGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#efe8db"/>
-      <stop offset="55%" stop-color="#d3bfa0"/>
-      <stop offset="100%" stop-color="#a2896a"/>
-    </linearGradient>
-    <linearGradient id="necs-capGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#3a3a3a"/>
-      <stop offset="100%" stop-color="#1a1a1a"/>
-    </linearGradient>
-    <linearGradient id="necs-capsuleGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#f7dfa0"/>
-      <stop offset="100%" stop-color="#d3a53a"/>
-    </linearGradient>
-  </defs>
-
-  <!-- Product illustration: softgel bottle + capsules -->
-  <symbol id="necs-bottle" viewBox="0 0 320 420">
-    <ellipse cx="160" cy="402" rx="94" ry="12" fill="#1a1a1a" opacity="0.08"/>
-
-    <g transform="translate(52,352) rotate(-20)">
-      <rect width="52" height="21" rx="10.5" fill="url(#necs-capsuleGrad)"/>
-      <rect x="7" y="4" width="14" height="5" rx="2.5" fill="#ffffff" opacity="0.55"/>
-    </g>
-    <g transform="translate(228,362) rotate(16)">
-      <rect width="52" height="21" rx="10.5" fill="url(#necs-capsuleGrad)"/>
-      <rect x="7" y="4" width="14" height="5" rx="2.5" fill="#ffffff" opacity="0.55"/>
-    </g>
-    <g transform="translate(146,386) rotate(3)">
-      <rect width="52" height="21" rx="10.5" fill="url(#necs-capsuleGrad)"/>
-      <rect x="7" y="4" width="14" height="5" rx="2.5" fill="#ffffff" opacity="0.55"/>
-    </g>
-
-    <rect x="128" y="16" width="64" height="30" rx="8" fill="url(#necs-capGrad)"/>
-    <rect x="133" y="21" width="7" height="20" rx="3.5" fill="#ffffff" opacity="0.14"/>
-    <rect x="140" y="44" width="40" height="18" fill="url(#necs-capGrad)"/>
-
-    <path d="M100,62 C97,80 92,96 92,112 L92,358 Q92,380 114,380 L206,380 Q228,380 228,358 L228,112 C228,96 223,80 220,62 Z" fill="url(#necs-bottleGrad)" stroke="#8b6f4e" stroke-width="1" stroke-opacity="0.25"/>
-    <rect x="102" y="118" width="13" height="238" rx="6.5" fill="#ffffff" opacity="0.22"/>
-
-    <rect x="105" y="150" width="110" height="160" rx="10" fill="#faf9f6" stroke="#e2e0dc"/>
-    <g transform="translate(160,173)" fill="none" stroke="#CC4B18" stroke-width="1.6" stroke-linecap="round">
-      <ellipse cx="0" cy="0" rx="6.5" ry="10.5" transform="rotate(24)" fill="#FFEFEA"/>
-      <path d="M-15,5 Q-6,-6 3,-2"/>
-    </g>
-    <text x="160" y="207" text-anchor="middle" font-family="Poppins, sans-serif" font-size="16" font-weight="600" fill="#1a1a1a" letter-spacing="0.3">NutraEssence</text>
-    <line x1="128" y1="217" x2="192" y2="217" stroke="#e2e0dc"/>
-    <text x="160" y="236" text-anchor="middle" font-family="Poppins, sans-serif" font-size="12" font-weight="700" fill="#CC4B18" letter-spacing="2.5">SEED3</text>
-    <text x="160" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="8.5" fill="#6b6b6b" letter-spacing="0.4">PUMPKIN SEED OIL</text>
-    <text x="160" y="266" text-anchor="middle" font-family="Arial, sans-serif" font-size="8.5" fill="#6b6b6b" letter-spacing="0.4">+ SAW PALMETTO</text>
-    <text x="160" y="288" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.5" fill="#8b6f4e" letter-spacing="0.6">60 SOFTGELS · 2000MG</text>
-  </symbol>
-
-  <!-- Icons -->
-  <symbol id="necs-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="12" cy="12" r="4.2"/>
-    <path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/>
-  </symbol>
-  <symbol id="necs-icon-drop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 3c3.6 4.2 6.2 7.9 6.2 11a6.2 6.2 0 1 1-12.4 0C5.8 10.9 8.4 7.2 12 3z"/>
-  </symbol>
-  <symbol id="necs-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5z"/>
-  </symbol>
-  <symbol id="necs-icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M5 5l14 14M19 5L5 19"/>
-  </symbol>
-  <symbol id="necs-icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M4 12.5l5.5 5.5L20 6.5"/>
-  </symbol>
-</svg>
-
-<!-- Hero product visual -->
-<div class="hero-banner">
-  <!-- Illustrated placeholder — swap for real product photography when available -->
-  <svg class="hero-bottle" viewBox="0 0 320 420" aria-hidden="true"><use href="#necs-bottle"></use></svg>
+<!-- ═══════ HERO IMAGE ═══════ -->
+<div class="necs-hero">
+  <!-- REPLACE src with your Shopify CDN link for the hero lifestyle flat lay image -->
+  <!-- <img src="https://cdn.shopify.com/s/files/YOUR-HERO-IMAGE.jpg" alt="Your Daily Cheat Sheet"> -->
+  <div class="necs-placeholder">
+    <div class="necs-label">HERO IMAGE (1280 x 720)</div>
+    Lifestyle flat lay: NutraEssence bottle + notebook checklist + pumpkin seeds + glass of water + wooden comb<br>
+    <em>Upload to Shopify &gt; Files &gt; copy CDN link &gt; replace this placeholder</em>
+  </div>
 </div>
 
-<!-- Blog Content -->
-<div class="blog-container">
+<div class="necs-blog">
 
-  <!-- Meta -->
-  <div class="blog-meta">
+  <!-- ═══════ META ═══════ -->
+  <div class="necs-meta">
     <span class="necs-tag">Routine Guide</span>
-    <span class="necs-dot">·</span>
-    <span>5 min read</span>
+    <h1>Your Daily Cheat Sheet</h1>
+    <p class="necs-sub">The simple routine that helps NutraEssence work the way it was designed to. No complicated steps. Just consistency.</p>
   </div>
 
-  <!-- Title -->
-  <h1 class="blog-title">Your Daily Cheat Sheet</h1>
-  <p class="blog-subtitle">The simple, research-aligned routine that helps NutraEssence work the way it was designed to. No complicated steps. Just consistency and a few smart habits.</p>
+  <hr class="necs-div">
 
-  <!-- Read Bar -->
-  <div class="read-bar">
-    <div><span>Product:</span> Pumpkin Seed Oil + Saw Palmetto Softgels</div>
-    <div><span>Dose:</span> 2 Softgels Daily</div>
-  </div>
+  <!-- ═══════ SECTION 1: MORNING ═══════ -->
+  <div class="necs-section">
+    <div class="necs-section-num">Step 1</div>
+    <h2>Morning: Take Your Dose</h2>
+    <p class="necs-lead">Get this right and you're ahead of 90% of people.</p>
 
-  <!-- TOC -->
-  <nav class="toc">
-    <div class="toc-label">In This Guide</div>
-    <ol>
-      <li><a href="#necs-s1">Morning: Your Daily Dose</a></li>
-      <li><a href="#necs-s2">Throughout the Day: What Supports Absorption</a></li>
-      <li><a href="#necs-s3">Evening: The Recovery Window</a></li>
-      <li><a href="#necs-s4">What to Avoid</a></li>
-      <li><a href="#necs-s5">What to Expect: Week by Week</a></li>
-      <li><a href="#necs-s6">Quick Reference Card</a></li>
-    </ol>
-  </nav>
-
-  <!-- Intro -->
-  <div class="intro">
-    <p>You bought NutraEssence for a reason. Something isn't working. The shedding, the thinning, the slow fade that no shampoo or serum has been able to fix.</p>
-    <br>
-    <p>The formula targets the root cause internally. But what you do around it matters. The right daily habits create the environment your follicles need to actually respond.</p>
-    <br>
-    <p>This is the exact routine our most consistent customers follow. Bookmark it. Screenshot it. Come back to it when you need a reset.</p>
-  </div>
-
-  <hr class="divider">
-
-  <!-- ════ SECTION 1: MORNING ════ -->
-  <section class="section" id="necs-s1">
-    <div class="section-eyebrow">Section 1</div>
-    <h2 class="section-heading">Morning: Your Daily Dose</h2>
-    <p class="section-lead">This is the foundation. Get this part right and you're already ahead of 90% of people who buy a supplement and take it inconsistently.</p>
-
-    <div class="time-card">
-      <div class="time-card-header">
-        <div class="time-icon morning"><svg><use href="#necs-icon-sun"></use></svg></div>
-        <div>
-          <div class="time-label">With Your First Meal</div>
-          <div class="time-sub">The non-negotiable part of your day</div>
-        </div>
-      </div>
-      <div class="time-card-body">
-        <ul class="point-list">
-          <li><strong>Take 2 softgels with breakfast</strong> or your first full meal. Never on an empty stomach. The fat content in food helps your body absorb the pumpkin seed oil more effectively.</li>
-          <li><strong>Drink a full glass of water with your dose.</strong> Hydration supports absorption and helps transport the active compounds to where they need to go. It also supports kidney and bladder function.</li>
-          <li><strong>Wait 30 minutes before coffee or caffeine.</strong> Caffeine can interfere with nutrient uptake in the early absorption window. Take your softgels first, then enjoy your morning coffee.</li>
-          <li><strong>Same time every day.</strong> The specific hour matters less than the consistency. Your body builds an internal rhythm when the dose arrives at the same time daily.</li>
-          <li><strong>Keep the bottle visible.</strong> Next to the coffee maker. On the breakfast table. Beside your keys. Wherever you look first in the morning. Out of sight is out of routine.</li>
-        </ul>
+    <div class="necs-section-img">
+      <!-- REPLACE: Lifestyle image of softgels next to breakfast plate + glass of water -->
+      <!-- <img src="https://cdn.shopify.com/s/files/YOUR-MORNING-IMAGE.jpg" alt="Morning dose with breakfast"> -->
+      <div class="necs-placeholder">
+        <div class="necs-label">MORNING IMAGE (720 x 405)</div>
+        Softgels next to a breakfast plate, glass of water, morning light<br>
+        <em>Shopify CDN link here</em>
       </div>
     </div>
 
-    <div class="callout">
-      <strong>Anchor it to a habit you already have.</strong> "After I start the coffee maker, I take my softgels." "After I sit down for breakfast, the bottle is right there." You don't need willpower. You need a trigger.
-    </div>
-  </section>
-
-  <hr class="divider">
-
-  <!-- ════ SECTION 2: THROUGHOUT THE DAY ════ -->
-  <section class="section" id="necs-s2">
-    <div class="section-eyebrow">Section 2</div>
-    <h2 class="section-heading">Throughout the Day: What Supports Absorption</h2>
-    <p class="section-lead">You took the dose. Now give your body what it needs to actually use it.</p>
-
-    <div class="time-card">
-      <div class="time-card-header">
-        <div class="time-icon day"><svg><use href="#necs-icon-drop"></use></svg></div>
-        <div>
-          <div class="time-label">Hydration + Habits</div>
-          <div class="time-sub">Simple things that compound over time</div>
-        </div>
-      </div>
-      <div class="time-card-body">
-        <ul class="point-list">
-          <li><strong>Drink 6 to 8 glasses of water throughout the day.</strong> This supports bladder health, kidney function, and helps the bioavailable compounds in the formula reach your follicles. Dehydration slows everything down.</li>
-          <li><strong>Do not hold your bladder for extended periods.</strong> This is especially important for women taking pumpkin seed oil. Consistent bathroom habits support the urinary health benefits of the formula.</li>
-          <li><strong>Eat whole, nutrient-dense foods where possible.</strong> Lean protein, leafy greens, healthy fats. These provide the building blocks your body needs alongside what the softgels deliver.</li>
-          <li><strong>Reduce processed foods and excess sodium.</strong> Both increase systemic inflammation. Inflammation works directly against what the formula is doing at the follicle level. Less inflammation means better internal conditions for hair growth.</li>
-          <li><strong>Move your body for at least 20 minutes.</strong> Walking counts. Movement improves circulation, including blood flow to the scalp. Better circulation means the active compounds reach the follicles more efficiently.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <hr class="divider">
-
-  <!-- ════ SECTION 3: EVENING ════ -->
-  <section class="section" id="necs-s3">
-    <div class="section-eyebrow">Section 3</div>
-    <h2 class="section-heading">Evening: The Recovery Window</h2>
-    <p class="section-lead">Your body does its deepest repair work while you sleep. Hormone regulation, cellular turnover, follicle recovery. Set the conditions for it.</p>
-
-    <div class="time-card">
-      <div class="time-card-header">
-        <div class="time-icon evening"><svg><use href="#necs-icon-moon"></use></svg></div>
-        <div>
-          <div class="time-label">Before Bed</div>
-          <div class="time-sub">Where the internal work happens</div>
-        </div>
-      </div>
-      <div class="time-card-body">
-        <ul class="point-list">
-          <li><strong>Massage your scalp for 2 to 3 minutes.</strong> Use gentle circular motions with your fingertips. This improves blood flow directly to the follicles. It costs nothing and takes less time than brushing your teeth.</li>
-          <li><strong>Keep your scalp clean.</strong> Remove heavy styling products, dry shampoo buildup, and anything that blocks the follicle opening. A clean scalp is a functional scalp.</li>
-          <li><strong>Avoid tight hairstyles overnight.</strong> Ponytails, braids, and clips that pull on the hair shaft cause mechanical stress on follicles that are already under DHT pressure. Let your hair rest while your body works.</li>
-          <li><strong>Prioritize 7 to 8 hours of sleep.</strong> Growth hormone peaks during deep sleep. Cortisol (the stress hormone that accelerates shedding) drops. This is when your body runs its internal repair cycle. Cutting sleep short interrupts all of it.</li>
-          <li><strong>Use a silk or satin pillowcase.</strong> Less friction on the hair shaft. Less breakage. Less morning shedding on the pillow. A small change with visible impact.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <hr class="divider">
-
-  <!-- ════ SECTION 4: WHAT TO AVOID ════ -->
-  <section class="section" id="necs-s4">
-    <div class="section-eyebrow">Section 4</div>
-    <h2 class="section-heading">What to Avoid</h2>
-    <p class="section-lead">Just as important as what you do. These habits quietly work against the formula and slow your results.</p>
-
-    <div class="time-card avoid-card">
-      <div class="time-card-header">
-        <div class="time-icon avoid"><svg><use href="#necs-icon-x"></use></svg></div>
-        <div>
-          <div class="time-label">Cut These Out</div>
-          <div class="time-sub">Habits that undermine what the formula is doing</div>
-        </div>
-      </div>
-      <div class="time-card-body">
-        <ul class="point-list">
-          <li><strong>Skipping days.</strong> Consistency is the single biggest factor. Missing one day is fine. Missing 3 to 4 in a row interrupts the internal support your follicles need to rebuild. The compound effect works both ways.</li>
-          <li><strong>Taking softgels on an empty stomach.</strong> You may feel nausea or discomfort. More importantly, fat-soluble nutrients absorb poorly without food. Always take with a meal.</li>
-          <li><strong>Excessive heat styling.</strong> Blow dryers, flat irons, and curling wands at high heat cause surface damage that mimics shedding. You will confuse heat breakage with actual hair loss and misread your progress.</li>
-          <li><strong>Crash diets and extreme calorie restriction.</strong> Your body prioritizes vital organs when nutrients are scarce. Hair is not a vital organ. Undereating triggers a shedding response that no supplement can override.</li>
-          <li><strong>Expecting overnight results.</strong> The hair growth cycle takes time. You are not going to see a transformation in week one. The internal shift starts before the visible one. Stay with it.</li>
-          <li><strong>Doubling up on missed days.</strong> If you forget a dose, just resume your normal schedule the next morning. Taking two doses at once does not compensate and can cause discomfort.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <hr class="divider">
-
-  <!-- ════ SECTION 5: WHAT TO EXPECT ════ -->
-  <section class="section" id="necs-s5">
-    <div class="section-eyebrow">Section 5</div>
-    <h2 class="section-heading">What to Expect: Week by Week</h2>
-    <p class="section-lead">Results are internal before they are visible. Here is a realistic timeline based on consistent daily use.</p>
-
-    <div class="week-timeline">
-      <div class="week-row">
-        <div class="week-badge">Week 1-2</div>
-        <div class="week-content">
-          <h4>Building the Foundation</h4>
-          <p>Your body is absorbing and processing the active compounds. Nothing visible yet. Your only job is to show up and take your dose daily. This is the discipline phase.</p>
-        </div>
-      </div>
-      <div class="week-row">
-        <div class="week-badge">Week 3-4</div>
-        <div class="week-content">
-          <h4>Internal Shift Begins</h4>
-          <p>The DHT-blocking compounds begin accumulating. Some women notice less shedding in the shower or on the pillow. Scalp may feel healthier. These are early signals.</p>
-        </div>
-      </div>
-      <div class="week-row">
-        <div class="week-badge">Week 5-8</div>
-        <div class="week-content">
-          <h4>Reduced Shedding Becomes Noticeable</h4>
-          <p>Less hair in the drain. Less on the brush. The follicles are stabilizing. The internal work is becoming visible. Stay consistent.</p>
-        </div>
-      </div>
-      <div class="week-row">
-        <div class="week-badge">Week 9-12</div>
-        <div class="week-content">
-          <h4>Visible Progress</h4>
-          <p>New growth along the hairline and part line. Strands feel thicker and stronger. This is the phase where most women know it is working. This is why you did not quit in week two.</p>
-        </div>
-      </div>
-      <div class="week-row">
-        <div class="week-badge">Month 4+</div>
-        <div class="week-content">
-          <h4>Compounding Results</h4>
-          <p>Hair density continues to improve. The longer you stay consistent, the more the formula can do. This is maintenance territory. The routine is the result.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="callout callout-warm">
-      <strong>The timeline is not a guarantee.</strong> Every body responds differently. Age, stress levels, hormonal profile, and genetics all play a role. What we can tell you is that the women who see the best results are the ones who stay consistent for 90 days or more. That is why we offer a 90-day risk-free guarantee. Commit to the routine. Give it real time.
-    </div>
-  </section>
-
-  <hr class="divider">
-
-  <!-- ════ SECTION 6: QUICK REFERENCE ════ -->
-  <section class="section" id="necs-s6">
-    <div class="section-eyebrow">Section 6</div>
-    <h2 class="section-heading">Quick Reference Card</h2>
-    <p class="section-lead">Save this. Screenshot it. Come back to it when you need a reset.</p>
-
-    <div class="quick-ref">
-      <div class="quick-ref-title">Your Daily Numbers</div>
-      <div class="quick-ref-grid">
-        <div class="qr-item">
-          <span class="qr-num">2</span>
-          <span class="qr-label">Softgels daily<br>with food</span>
-        </div>
-        <div class="qr-item">
-          <span class="qr-num">6-8</span>
-          <span class="qr-label">Glasses of water<br>throughout the day</span>
-        </div>
-        <div class="qr-item">
-          <span class="qr-num">2-3</span>
-          <span class="qr-label">Minutes of scalp massage<br>before bed</span>
-        </div>
-        <div class="qr-item">
-          <span class="qr-num">7-8</span>
-          <span class="qr-label">Hours of sleep<br>every night</span>
-        </div>
-      </div>
-    </div>
-
-    <ul class="checklist">
-      <li>
-        <div class="check-icon"><svg><use href="#necs-icon-check"></use></svg></div>
-        <div><strong>Take 2 softgels with breakfast.</strong> Always with food and a full glass of water.</div>
-      </li>
-      <li>
-        <div class="check-icon"><svg><use href="#necs-icon-check"></use></svg></div>
-        <div><strong>Wait 30 minutes before caffeine.</strong> Protect the absorption window.</div>
-      </li>
-      <li>
-        <div class="check-icon"><svg><use href="#necs-icon-check"></use></svg></div>
-        <div><strong>Stay hydrated all day.</strong> Water supports bladder health, kidney function, and nutrient transport.</div>
-      </li>
-      <li>
-        <div class="check-icon"><svg><use href="#necs-icon-check"></use></svg></div>
-        <div><strong>Reduce processed foods and sodium.</strong> Both increase inflammation that works against follicle recovery.</div>
-      </li>
-      <li>
-        <div class="check-icon"><svg><use href="#necs-icon-check"></use></svg></div>
-        <div><strong>Massage your scalp before bed.</strong> 2 to 3 minutes of gentle circular motions to improve blood flow.</div>
-      </li>
-      <li>
-        <div class="check-icon"><svg><use href="#necs-icon-check"></use></svg></div>
-        <div><strong>Keep your scalp clean.</strong> No heavy product buildup blocking follicle function.</div>
-      </li>
-      <li>
-        <div class="check-icon"><svg><use href="#necs-icon-check"></use></svg></div>
-        <div><strong>Prioritize sleep.</strong> 7 to 8 hours. Repair and hormone regulation happen overnight.</div>
-      </li>
-      <li>
-        <div class="check-icon"><svg><use href="#necs-icon-check"></use></svg></div>
-        <div><strong>If you miss a day, just resume.</strong> No doubling up. No guilt. Consistency, not perfection.</div>
-      </li>
-      <li>
-        <div class="check-icon"><svg><use href="#necs-icon-check"></use></svg></div>
-        <div><strong>Commit for 90 days.</strong> The internal shift starts before the visible one. Give it real time.</div>
-      </li>
+    <ul class="necs-points">
+      <li><u>Take 2 softgels with breakfast.</u> Fat in food helps absorption.</li>
+      <li><u>Drink a full glass of water</u> with your dose. Supports kidney function and nutrient transport.</li>
+      <li><u>Wait 30 minutes before caffeine.</u> It interferes with uptake in the absorption window.</li>
+      <li><strong>Same time every day.</strong> Consistency matters more than the specific hour.</li>
     </ul>
-  </section>
 
-  <!-- ════ CTA BLOCK ════ -->
-  <div class="cta-block">
-    <div class="cta-visual">
-      <!-- Illustrated placeholder — swap for real product photography when available -->
-      <svg viewBox="0 0 320 420" aria-hidden="true"><use href="#necs-bottle"></use></svg>
-    </div>
-    <div class="cta-content">
-      <h3>Ready to Start Your Ritual?</h3>
-      <p>2,000mg cold-pressed Pumpkin Seed Oil. 200mg Saw Palmetto. Two softgels daily. Internal support that works at the follicle level.</p>
-      <a href="https://mynutraessence.com/products/seed3-b1g1" class="cta-btn">Shop NutraEssence</a>
-      <div class="cta-sub">90-Day Risk-Free Guarantee. Free Shipping.</div>
+    <div class="necs-callout">
+      <strong>Anchor it to a habit you already have.</strong> "After I start the coffee maker, I take my softgels." No willpower needed. Just a trigger.
     </div>
   </div>
 
-  <!-- Disclaimer -->
-  <div class="disclaimer">
-    *These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Individual results may vary. Consult your healthcare provider before starting any supplement.
+  <hr class="necs-div">
+
+  <!-- ═══════ SECTION 2: THROUGHOUT THE DAY ═══════ -->
+  <div class="necs-section">
+    <div class="necs-section-num">Step 2</div>
+    <h2>Throughout the Day</h2>
+    <p class="necs-lead">Give your body what it needs to use the dose.</p>
+
+    <div class="necs-section-img">
+      <!-- REPLACE: Woman drinking water / healthy meal prep / walking outdoors -->
+      <!-- <img src="https://cdn.shopify.com/s/files/YOUR-DAY-IMAGE.jpg" alt="Stay hydrated throughout the day"> -->
+      <div class="necs-placeholder">
+        <div class="necs-label">DAYTIME IMAGE (720 x 405)</div>
+        Glass of water, healthy meal, or woman walking outdoors<br>
+        <em>Shopify CDN link here</em>
+      </div>
+    </div>
+
+    <ul class="necs-points">
+      <li><u>6 to 8 glasses of water.</u> Helps bioavailable compounds reach your follicles.</li>
+      <li><u>Reduce processed foods and sodium.</u> Both increase inflammation that works against follicle recovery.</li>
+      <li><strong>Move for 20 minutes.</strong> Walking counts. Better circulation means better delivery to the scalp.</li>
+      <li><strong>Don't hold your bladder.</strong> Consistent bathroom habits support urinary health benefits.</li>
+    </ul>
+  </div>
+
+  <hr class="necs-div">
+
+  <!-- ═══════ SECTION 3: EVENING ═══════ -->
+  <div class="necs-section">
+    <div class="necs-section-num">Step 3</div>
+    <h2>Evening: The Recovery Window</h2>
+    <p class="necs-lead">Your body does its deepest repair while you sleep.</p>
+
+    <div class="necs-section-img">
+      <!-- REPLACE: Scalp massage / silk pillowcase / calm bedtime scene -->
+      <!-- <img src="https://cdn.shopify.com/s/files/YOUR-EVENING-IMAGE.jpg" alt="Evening scalp massage routine"> -->
+      <div class="necs-placeholder">
+        <div class="necs-label">EVENING IMAGE (720 x 405)</div>
+        Scalp massage, silk pillowcase, calming bedtime routine scene<br>
+        <em>Shopify CDN link here</em>
+      </div>
+    </div>
+
+    <ul class="necs-points">
+      <li><u>Scalp massage for 2 to 3 minutes.</u> Gentle circular motions. Improves blood flow to follicles.</li>
+      <li><u>Keep your scalp clean.</u> Remove heavy product buildup that blocks follicle function.</li>
+      <li><strong>Skip tight hairstyles overnight.</strong> Less mechanical stress on follicles already under DHT pressure.</li>
+      <li><u>7 to 8 hours of sleep.</u> Growth hormone peaks during deep sleep. Cortisol drops. Repair happens here.</li>
+    </ul>
+  </div>
+
+  <hr class="necs-div">
+
+  <!-- ═══════ SECTION 4: WHAT TO AVOID ═══════ -->
+  <div class="necs-section">
+    <div class="necs-section-num">Step 4</div>
+    <h2>What to Avoid</h2>
+    <p class="necs-lead">These habits quietly work against the formula.</p>
+
+    <div class="necs-section-img">
+      <!-- REPLACE: Flat lay of things to avoid: heat tools, junk food, empty pill organizer -->
+      <!-- <img src="https://cdn.shopify.com/s/files/YOUR-AVOID-IMAGE.jpg" alt="What to avoid for best results"> -->
+      <div class="necs-placeholder">
+        <div class="necs-label">AVOID IMAGE (720 x 405)</div>
+        Crossed-out items: heat tools, processed food, skipped doses<br>
+        <em>Shopify CDN link here</em>
+      </div>
+    </div>
+
+    <ul class="necs-points necs-avoid">
+      <li><u>Skipping days.</u> Missing 3 to 4 in a row interrupts follicle support. The compound effect works both ways.</li>
+      <li><u>Empty stomach.</u> Fat-soluble nutrients absorb poorly without food.</li>
+      <li><strong>Excessive heat styling.</strong> You'll confuse heat breakage with actual shedding.</li>
+      <li><strong>Crash diets.</strong> Your body deprioritizes hair when nutrients are scarce. No supplement overrides that.</li>
+      <li><strong>Doubling up on missed days.</strong> Just resume your normal schedule the next morning.</li>
+    </ul>
+  </div>
+
+  <hr class="necs-div">
+
+  <!-- ═══════ SECTION 5: WHAT TO EXPECT ═══════ -->
+  <div class="necs-section">
+    <div class="necs-section-num">Step 5</div>
+    <h2>What to Expect</h2>
+    <p class="necs-lead">Results are internal before they're visible.</p>
+
+    <div class="necs-section-img">
+      <!-- REPLACE: Before/after hair progress photo or hair growth timeline graphic -->
+      <!-- <img src="https://cdn.shopify.com/s/files/YOUR-TIMELINE-IMAGE.jpg" alt="Hair growth timeline"> -->
+      <div class="necs-placeholder">
+        <div class="necs-label">TIMELINE IMAGE (720 x 405)</div>
+        Before/after progress photo or hair growth stages graphic<br>
+        <em>Shopify CDN link here</em>
+      </div>
+    </div>
+
+    <div class="necs-timeline">
+      <div class="necs-tl-row">
+        <div class="necs-tl-badge">Wk 1-2</div>
+        <div class="necs-tl-text">
+          <strong>Building the Foundation</strong>
+          <span>Active compounds absorbing. Nothing visible yet. Just show up daily.</span>
+        </div>
+      </div>
+      <div class="necs-tl-row">
+        <div class="necs-tl-badge">Wk 3-4</div>
+        <div class="necs-tl-text">
+          <strong>Internal Shift</strong>
+          <span>DHT-blocking compounds accumulating. Some notice less shedding in the shower.</span>
+        </div>
+      </div>
+      <div class="necs-tl-row">
+        <div class="necs-tl-badge">Wk 5-8</div>
+        <div class="necs-tl-text">
+          <strong>Shedding Slows</strong>
+          <span>Less hair in the drain. Less on the brush. Follicles stabilizing.</span>
+        </div>
+      </div>
+      <div class="necs-tl-row">
+        <div class="necs-tl-badge">Wk 9-12</div>
+        <div class="necs-tl-text">
+          <strong>Visible Progress</strong>
+          <span>New growth along the hairline. Strands feel thicker. This is why you didn't quit in week two.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="necs-callout necs-warm">
+      Every body responds differently. The women who see the best results stay consistent for <u>90 days or more</u>. That's why we offer a 90-day risk-free guarantee.
+    </div>
+  </div>
+
+  <hr class="necs-div">
+
+  <!-- ═══════ SECTION 6: QUICK REFERENCE ═══════ -->
+  <div class="necs-section">
+    <div class="necs-section-num">Save This</div>
+    <h2>Your Daily Numbers</h2>
+
+    <div class="necs-qr-grid">
+      <div class="necs-qr-card">
+        <span class="necs-num">2</span>
+        <span class="necs-lbl">Softgels<br>with food</span>
+      </div>
+      <div class="necs-qr-card">
+        <span class="necs-num">6-8</span>
+        <span class="necs-lbl">Glasses<br>of water</span>
+      </div>
+      <div class="necs-qr-card">
+        <span class="necs-num">2-3</span>
+        <span class="necs-lbl">Min scalp<br>massage</span>
+      </div>
+      <div class="necs-qr-card">
+        <span class="necs-num">7-8</span>
+        <span class="necs-lbl">Hours<br>of sleep</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SOFTGELS CTA ═══════ -->
+  <div class="necs-cta-block">
+    <h3>Start Your Ritual</h3>
+    <p>2,000mg cold-pressed Pumpkin Seed Oil. 200mg Saw Palmetto. Two softgels daily.</p>
+    <a href="https://mynutraessence.com/products/seed" class="necs-cta-btn">Shop NutraEssence Softgels</a>
+    <div class="necs-cta-sub">90-Day Risk-Free Guarantee · Free Shipping</div>
+  </div>
+
+  <hr class="necs-div">
+
+  <!-- ═══════ SERUM UPSELL ═══════ -->
+  <div class="necs-upsell">
+    <div class="necs-upsell-inner">
+      <div class="necs-upsell-img">
+        <!-- REPLACE: NutraEssence Serum product image -->
+        <!-- <img src="https://cdn.shopify.com/s/files/YOUR-SERUM-IMAGE.jpg" alt="NutraEssence Hair Serum"> -->
+        <div class="necs-placeholder">
+          <div class="necs-label">SERUM PRODUCT IMAGE</div>
+          NutraEssence Serum bottle photo<br>
+          <em>Shopify CDN link here</em>
+        </div>
+      </div>
+      <div class="necs-upsell-body">
+        <div class="necs-upsell-tag">Complete Your Routine</div>
+        <h3>Internal + Topical. The Full System.</h3>
+        <p>NutraEssence Softgels work from within. The serum works on the surface. Together, they cover both sides of the DHT pathway.</p>
+        <ul class="necs-upsell-points">
+          <li>Topical support directly at the scalp</li>
+          <li>Pairs with your daily softgel routine</li>
+          <li>Apply during your evening scalp massage</li>
+        </ul>
+        <!-- REPLACE href with your serum product URL -->
+        <a href="https://mynutraessence.com/products/serum" class="necs-cta-btn necs-orange">Shop The Serum</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ DISCLAIMER ═══════ -->
+  <div class="necs-disclaimer">
+    *These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Individual results may vary.
   </div>
 
 </div>
-
-<!-- Mobile sticky shop bar -->
-<div class="mobile-sticky-cta">
-  <div class="msc-text">
-    <strong>Seed3 — Buy 1 Get 1 Free</strong>
-    <span>Free shipping · 90-day guarantee</span>
-  </div>
-  <a href="https://mynutraessence.com/products/seed3-b1g1" class="msc-btn">Shop Now</a>
-</div>
-
 </div>
