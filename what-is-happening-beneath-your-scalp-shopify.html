@@ -1,0 +1,535 @@
+<!--
+  SHOPIFY BLOG POST VERSION — paste this whole block into the blog post's
+  HTML source editor. This does NOT include a top bar / header / footer —
+  your theme already provides those, so this starts right at the hero
+  image and ends at the disclaimer. All CSS is scoped under .ne2 (a
+  different scope than the "Daily Cheat Sheet" post's .necs, so the two
+  posts never collide if they're ever rendered on the same page).
+-->
+<div class="ne2">
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+  .ne2, .ne2 * { box-sizing: border-box; }
+  .ne2 ul, .ne2 ol, .ne2 h1, .ne2 h2, .ne2 h3, .ne2 h4, .ne2 p, .ne2 div { margin: 0; padding: 0; }
+
+  .ne2 {
+    --ne2-black: #1a1a1a;
+    --ne2-dark: #2c2c2c;
+    --ne2-body: #3d3d3d;
+    --ne2-muted: #6b6b6b;
+    --ne2-border: #e2e0dc;
+    --ne2-light: #f7f6f3;
+    --ne2-white: #fff;
+    --ne2-accent: #CC4B18;
+    --ne2-accent-dark: #A33C13;
+    --ne2-accent-light: #FFEFEA;
+    --ne2-warm: #8b6f4e;
+    --ne2-warm-light: #f5f0ea;
+    --ne2-orange: #CC4B18;
+    --ne2-orange-light: #FFEFEA;
+    --ne2-red: #b94a3a;
+    --ne2-red-light: #fdf0ee;
+
+    font-family: 'Poppins', -apple-system, sans-serif;
+    color: var(--ne2-body);
+    background: var(--ne2-white);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+
+    /* Breakout: Shopify's article template wraps post content in its own
+       narrow column, so a % width here would just be a % of that narrow
+       box. This escapes it and re-centers on the true viewport width. */
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+  }
+  /* Belt-and-suspenders for the 100vw/scrollbar-width edge case some browsers have */
+  html, body { overflow-x: hidden; }
+
+  .ne2 .ne2-blog { width: 70%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── Hero ── */
+  .ne2 .ne2-hero {
+    width: 70%; max-width: 1200px; margin: 0 auto;
+    aspect-ratio: 16/9; border-radius: 0 0 12px 12px; overflow: hidden;
+    background: var(--ne2-light); display: flex; align-items: center; justify-content: center;
+  }
+  .ne2 .ne2-hero img { width: 100%; height: 100%; object-fit: cover; }
+  .ne2 .ne2-hero .ne2-ph, .ne2 .ne2-section-img .ne2-ph, .ne2 .ne2-upsell-img .ne2-ph {
+    text-align: center; padding: 16px; font-size: 12px; color: var(--ne2-muted);
+    border: 2px dashed var(--ne2-border); border-radius: 8px; margin: 16px; width: calc(100% - 32px);
+  }
+  .ne2 .ne2-ph .ne2-lbl { font-weight: 700; color: var(--ne2-dark); font-size: 13px; margin-bottom: 4px; }
+  .ne2 .ne2-ph .ne2-pr { font-size: 10px; color: var(--ne2-accent); background: var(--ne2-accent-light); padding: 8px 10px; border-radius: 6px; margin-top: 8px; text-align: left; line-height: 1.5; }
+  .ne2 .ne2-ph .ne2-pr b { color: var(--ne2-dark); }
+
+  /* ── Meta ── */
+  .ne2 .ne2-meta { padding: 32px 0 0; }
+  .ne2 .ne2-meta .ne2-tag {
+    display: inline-block; background: var(--ne2-accent-light); color: var(--ne2-accent);
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; padding: 4px 10px; border-radius: 3px; margin-bottom: 12px;
+  }
+  .ne2 .ne2-meta h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 38px; font-weight: 600; color: var(--ne2-black); line-height: 1.15; margin-bottom: 12px;
+  }
+  .ne2 .ne2-meta .ne2-sub { font-size: 16px; color: var(--ne2-muted); line-height: 1.6; margin-bottom: 24px; }
+  .ne2 hr.ne2-div { border: none; border-top: 1px solid var(--ne2-border); margin: 40px 0; }
+
+  /* ── Section ── */
+  .ne2 .ne2-section { margin-bottom: 48px; }
+  .ne2 .ne2-section-num { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ne2-accent); margin-bottom: 6px; }
+  .ne2 .ne2-section h2 { font-family: 'Poppins', sans-serif; font-size: 26px; font-weight: 600; color: var(--ne2-black); line-height: 1.25; margin-bottom: 8px; }
+  .ne2 .ne2-section .ne2-lead { font-size: 15px; color: var(--ne2-muted); margin-bottom: 20px; }
+  .ne2 .ne2-section-img {
+    width: 100%; border-radius: 10px; overflow: hidden;
+    margin-bottom: 20px; background: var(--ne2-light);
+    aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;
+  }
+  .ne2 .ne2-section-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  /* Use on images that must show in full (e.g. square/portrait collages) instead of being cropped to 16:9 */
+  .ne2 .ne2-section-img.ne2-uncropped { aspect-ratio: auto; }
+  .ne2 .ne2-section-img.ne2-uncropped img { width: 100%; height: auto; object-fit: contain; }
+
+  /* ── Points ── */
+  .ne2 .ne2-points { list-style: none; padding: 0; margin: 0; }
+  .ne2 .ne2-points li {
+    position: relative; padding: 10px 0 10px 22px;
+    font-size: 15px; line-height: 1.6; color: var(--ne2-body);
+    border-bottom: 1px solid var(--ne2-border);
+  }
+  .ne2 .ne2-points li:last-child { border-bottom: none; }
+  .ne2 .ne2-points li::before {
+    content: ''; position: absolute; left: 0; top: 18px;
+    width: 8px; height: 8px; border-radius: 50%; background: var(--ne2-accent);
+  }
+  .ne2 .ne2-points li strong { color: var(--ne2-black); font-weight: 600; }
+  .ne2 .ne2-points li u { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--ne2-accent); }
+  .ne2 .ne2-points.ne2-red li::before { background: var(--ne2-red); }
+
+  /* ── Callout ── */
+  .ne2 .ne2-callout {
+    background: var(--ne2-accent-light); border-left: 3px solid var(--ne2-accent);
+    padding: 16px 20px; border-radius: 0 8px 8px 0;
+    font-size: 14px; line-height: 1.6; color: var(--ne2-dark); margin: 20px 0;
+  }
+  .ne2 .ne2-callout strong { color: var(--ne2-black); }
+  .ne2 .ne2-callout.ne2-warm { background: var(--ne2-warm-light); border-left-color: var(--ne2-warm); }
+  .ne2 .ne2-callout.ne2-alert { background: var(--ne2-red-light); border-left-color: var(--ne2-red); }
+
+  /* ── Compare ── */
+  .ne2 .ne2-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+  .ne2 .ne2-compare-card { border-radius: 10px; padding: 16px; text-align: center; }
+  .ne2 .ne2-compare-card.ne2-healthy { background: var(--ne2-accent-light); border: 1px solid #e8c9b8; }
+  .ne2 .ne2-compare-card.ne2-damaged { background: var(--ne2-red-light); border: 1px solid #e8c5be; }
+  .ne2 .ne2-compare-card .ne2-ci { font-size: 28px; margin-bottom: 6px; display: block; }
+  .ne2 .ne2-compare-card h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+  .ne2 .ne2-compare-card.ne2-healthy h4 { color: var(--ne2-accent); }
+  .ne2 .ne2-compare-card.ne2-damaged h4 { color: var(--ne2-red); }
+  .ne2 .ne2-compare-card p { font-size: 12px; line-height: 1.5; color: var(--ne2-body); }
+
+  /* ── Timeline ── */
+  .ne2 .ne2-tl-row { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--ne2-border); align-items: flex-start; }
+  .ne2 .ne2-tl-row:last-child { border-bottom: none; }
+  .ne2 .ne2-tl-badge {
+    flex-shrink: 0; min-width: 64px; padding: 0 10px;
+    height: 26px; line-height: 26px; text-align: center;
+    background: var(--ne2-accent-light); color: var(--ne2-accent);
+    border-radius: 5px; font-size: 11px; font-weight: 700; text-transform: uppercase;
+  }
+  .ne2 .ne2-tl-text { flex: 1; }
+  .ne2 .ne2-tl-text strong { font-size: 14px; color: var(--ne2-black); display: block; margin-bottom: 1px; }
+  .ne2 .ne2-tl-text span { font-size: 13px; color: var(--ne2-muted); line-height: 1.5; }
+
+  /* ── Ingredients ── */
+  .ne2 .ne2-ing-card { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--ne2-border); align-items: flex-start; }
+  .ne2 .ne2-ing-card:last-child { border-bottom: none; }
+  .ne2 .ne2-ing-icon {
+    flex-shrink: 0; width: 40px; height: 40px;
+    background: var(--ne2-accent-light); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; font-size: 18px;
+  }
+  .ne2 .ne2-ing-icon.ne2-or { background: var(--ne2-orange-light); }
+  .ne2 .ne2-ing-body h4 { font-size: 14px; font-weight: 600; color: var(--ne2-black); margin-bottom: 1px; }
+  .ne2 .ne2-ing-body p { font-size: 13px; color: var(--ne2-body); line-height: 1.5; }
+
+  /* ── System Grid ── */
+  .ne2 .ne2-sys-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+  .ne2 .ne2-sys-card { border-radius: 10px; padding: 18px; border: 1px solid var(--ne2-border); }
+  .ne2 .ne2-sys-card .ne2-st { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+  .ne2 .ne2-sys-card.ne2-int { background: var(--ne2-accent-light); }
+  .ne2 .ne2-sys-card.ne2-int .ne2-st { color: var(--ne2-accent); }
+  .ne2 .ne2-sys-card.ne2-top { background: var(--ne2-orange-light); }
+  .ne2 .ne2-sys-card.ne2-top .ne2-st { color: var(--ne2-orange); }
+  .ne2 .ne2-sys-card h4 { font-family: 'Poppins', sans-serif; font-size: 17px; font-weight: 600; color: var(--ne2-black); margin-bottom: 8px; }
+  .ne2 .ne2-sys-card ul { list-style: none; padding: 0; margin: 0; }
+  .ne2 .ne2-sys-card li { font-size: 12px; color: var(--ne2-body); padding: 2px 0; line-height: 1.4; }
+  .ne2 .ne2-sys-card li::before { content: '→ '; color: var(--ne2-muted); }
+
+  /* ── Upsell ── */
+  .ne2 .ne2-upsell { background: var(--ne2-orange-light); border: 1px solid #e8d5cc; border-radius: 12px; overflow: hidden; margin: 48px 0 32px; }
+  .ne2 .ne2-upsell-inner { display: flex; }
+  .ne2 .ne2-upsell-img { flex: 0 0 42%; background: var(--ne2-light); display: flex; align-items: center; justify-content: center; min-height: 260px; }
+  .ne2 .ne2-upsell-img img { width: 100%; height: 100%; object-fit: cover; }
+  .ne2 .ne2-upsell-body { flex: 1; padding: 24px 20px; display: flex; flex-direction: column; justify-content: center; }
+  .ne2 .ne2-upsell-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ne2-orange); margin-bottom: 6px; }
+  .ne2 .ne2-upsell-body h3 { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 600; color: var(--ne2-black); margin-bottom: 8px; line-height: 1.25; }
+  .ne2 .ne2-upsell-body p { font-size: 13px; color: var(--ne2-body); line-height: 1.6; margin-bottom: 14px; }
+  .ne2 .ne2-upsell-pts { list-style: none; padding: 0; margin: 0 0 16px; }
+  .ne2 .ne2-upsell-pts li { font-size: 12px; color: var(--ne2-dark); padding: 2px 0; }
+  .ne2 .ne2-upsell-pts li::before { content: '✓ '; color: var(--ne2-accent); font-weight: 700; }
+
+  /* ── CTA ── */
+  .ne2 .ne2-cta-btn {
+    display: inline-block; background: var(--ne2-accent); color: var(--ne2-white);
+    padding: 13px 32px; border-radius: 6px;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; text-decoration: none;
+  }
+  .ne2 .ne2-cta-btn:hover { background: var(--ne2-accent-dark); }
+  .ne2 .ne2-cta-btn.ne2-orange { background: var(--ne2-orange); }
+  .ne2 .ne2-cta-btn.ne2-orange:hover { background: var(--ne2-accent-dark); }
+  .ne2 .ne2-cta-block { text-align: center; padding: 40px 24px; background: var(--ne2-light); border-radius: 12px; margin: 40px 0; }
+  .ne2 .ne2-cta-block h3 { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 600; color: var(--ne2-black); margin-bottom: 8px; }
+  .ne2 .ne2-cta-block p { font-size: 14px; color: var(--ne2-muted); margin-bottom: 20px; line-height: 1.5; }
+  .ne2 .ne2-cta-sub { font-size: 11px; color: var(--ne2-muted); margin-top: 10px; }
+
+  .ne2 .ne2-disclaimer {
+    font-size: 10px; color: var(--ne2-muted); text-align: center;
+    line-height: 1.5; padding: 20px 0; border-top: 1px solid var(--ne2-border); margin-top: 32px;
+  }
+
+  /* ── Tablet ── */
+  @media (max-width: 900px) {
+    .ne2 .ne2-blog { width: 92%; max-width: 100%; }
+    .ne2 .ne2-hero { width: 92%; max-width: 100%; }
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 640px) {
+    .ne2 .ne2-blog { width: 100%; padding: 0 16px; }
+    .ne2 .ne2-hero { width: 100%; }
+    .ne2 .ne2-meta h1 { font-size: 28px; }
+    .ne2 .ne2-section h2 { font-size: 22px; }
+    .ne2 .ne2-compare, .ne2 .ne2-sys-grid { grid-template-columns: 1fr; }
+    .ne2 .ne2-upsell-inner { flex-direction: column; }
+    .ne2 .ne2-upsell-img { flex: none; min-height: 200px; }
+    .ne2 .ne2-upsell-body { padding: 20px 16px; }
+    .ne2 .ne2-tl-row { flex-direction: column; gap: 4px; }
+    .ne2 .ne2-tl-badge { min-width: auto; display: inline-block; }
+  }
+</style>
+
+<!-- ═══════ HERO ═══════ -->
+<div class="ne2-hero">
+  <!-- <img src="YOUR-HERO.jpg" alt="What is happening beneath your scalp"> -->
+  <div class="ne2-ph">
+    <div class="ne2-lbl">HERO IMAGE (1280 x 720)</div>
+    <div class="ne2-pr">
+      <b>PROMPT:</b> Photorealistic close-up editorial photograph. A woman's hand gently touching her hair part line, camera from slightly above and behind, showing the top of her head and healthy scalp. Warm soft studio lighting from the left. Her hair is dark brown, slightly thin at the part. Next to her on a clean white marble surface sits a round burnt-orange supplement bottle labeled "nutraessence PUMPKIN SEED OIL WITH SAW PALMETTO 2000 MG". A few dark amber softgel capsules scattered nearby. Blurred creamy beige background. Magazine-quality beauty editorial. No face visible. No text overlays. No watermarks. 16:9.
+    </div>
+  </div>
+</div>
+
+<div class="ne2-blog">
+
+  <!-- ═══════ META ═══════ -->
+  <div class="ne2-meta">
+    <span class="ne2-tag">Scalp Science</span>
+    <h1>What Is Really Happening Beneath Your Scalp</h1>
+    <p class="ne2-sub">The changes start inside. Here is what is going on, why it matters, and how to support it from both sides.</p>
+  </div>
+
+  <hr class="ne2-div">
+
+  <!-- ═══════ PART 1: DHT ═══════ -->
+  <div class="ne2-section">
+    <div class="ne2-section-num">Part 1</div>
+    <h2>The Root Cause: DHT</h2>
+    <p class="ne2-lead">One hormone is behind most of the thinning you see.</p>
+
+    <div class="ne2-section-img">
+      <!-- <img src="YOUR-DHT.jpg" alt="DHT and hair follicle"> -->
+      <div class="ne2-ph">
+        <div class="ne2-lbl">DHT DIAGRAM (720 x 405)</div>
+        <div class="ne2-pr">
+          <b>PROMPT:</b> Clean minimal medical illustration on white background. Cross-section comparison of two hair follicles side by side. Left: "Healthy Follicle" with full-sized follicle, thick strand, vibrant pink blood supply. Right: "DHT-Affected Follicle" with shrunken miniaturized follicle, thin wispy strand, small red DHT molecule icons binding to receptor. Modern scientific diagram, soft pastel colors, greens for healthy, muted reds for damaged. Educational, not clinical. No watermarks. 16:9.
+        </div>
+      </div>
+    </div>
+
+    <ul class="ne2-points">
+      <li><u>DHT shrinks your follicles.</u> It binds to receptors and signals them to miniaturize over time.</li>
+      <li><u>Smaller follicles produce thinner strands.</u> Eventually they stop producing visible hair altogether.</li>
+      <li><strong>This happens beneath the surface.</strong> By the time you notice thinning, it has been active for months.</li>
+      <li><strong>Shampoos cannot reach it.</strong> DHT is produced internally. Surface products treat symptoms only.</li>
+      <li><strong>Hormonal shifts increase DHT activity.</strong> After 35, postpartum, menopause, and stress all accelerate it.</li>
+    </ul>
+
+    <div class="ne2-compare">
+      <div class="ne2-compare-card ne2-healthy">
+        <span class="ne2-ci">●</span>
+        <h4>Before DHT</h4>
+        <p>Full follicle. Thick strand. Normal growth cycle.</p>
+      </div>
+      <div class="ne2-compare-card ne2-damaged">
+        <span class="ne2-ci">◌</span>
+        <h4>After DHT</h4>
+        <p>Shrunken follicle. Thin strand. Shortened cycle.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ne2-div">
+
+  <!-- ═══════ PART 2: WHAT SOFTGELS DO ═══════ -->
+  <div class="ne2-section">
+    <div class="ne2-section-num">Part 2</div>
+    <h2>What Your Softgels Are Doing Right Now</h2>
+    <p class="ne2-lead">The internal shift you cannot see yet.</p>
+
+    <div class="ne2-section-img">
+      <!-- <img src="YOUR-SOFTGELS.jpg" alt="NutraEssence softgels"> -->
+      <div class="ne2-ph">
+        <div class="ne2-lbl">SOFTGELS IMAGE (720 x 405)</div>
+        <div class="ne2-pr">
+          <b>PROMPT:</b> Photorealistic flat lay of two dark amber softgel capsules on a clean white surface, surrounded by raw ingredients: a pile of pumpkin seeds, saw palmetto berries, a few drops of golden oil. Soft warm natural light from the left. A burnt-orange bottle labeled "nutraessence" sits in the soft blurred background. Warm earth tones, amber, green. Editorial product photography. No people. No watermarks. 16:9.
+        </div>
+      </div>
+    </div>
+
+    <ul class="ne2-points">
+      <li><u>Blocking DHT at the source.</u> 2,000mg of Pumpkin Seed Oil inhibits the enzyme that converts testosterone into DHT.</li>
+      <li><u>Supporting hormonal balance.</u> 200mg Saw Palmetto works alongside to maintain healthier DHT levels.</li>
+      <li><strong>Reducing follicle inflammation.</strong> Essential fatty acids calm the inflammatory response that accelerates miniaturization.</li>
+      <li><strong>Cold-pressed preserves potency.</strong> Heat processing destroys the active compounds. NutraEssence uses cold-pressed, virgin extraction.</li>
+      <li><strong>Stabilizing the growth cycle.</strong> Follicles begin holding onto hair longer before shedding.</li>
+    </ul>
+  </div>
+
+  <hr class="ne2-div">
+
+  <!-- ═══════ PART 3: TIMELINE ═══════ -->
+  <div class="ne2-section">
+    <div class="ne2-section-num">Part 3</div>
+    <h2>Your Internal Timeline</h2>
+    <p class="ne2-lead">Results are internal before they are visible.</p>
+
+    <div class="ne2-section-img">
+      <!-- <img src="YOUR-TIMELINE.jpg" alt="Hair growth timeline"> -->
+      <div class="ne2-ph">
+        <div class="ne2-lbl">TIMELINE IMAGE (720 x 405)</div>
+        <div class="ne2-pr">
+          <b>PROMPT:</b> Clean modern infographic illustration showing a horizontal timeline of hair regrowth stages on a soft cream background. Four stages left to right: "Week 1-2" with small seedling icon, "Week 3-4" with sprouting icon, "Month 2-3" with growing plant icon, "Month 3+" with full flourishing plant icon. Soft greens progressing from pale to rich, cream background, minimal clean design. Wellness brand aesthetic. Illustration only, no photos. No watermarks. 16:9.
+        </div>
+      </div>
+    </div>
+
+    <div class="ne2-tl-row">
+      <div class="ne2-tl-badge">Wk 1-2</div>
+      <div class="ne2-tl-text">
+        <strong>Building the Foundation</strong>
+        <span>Active compounds accumulating. Nothing visible. Just show up daily.</span>
+      </div>
+    </div>
+    <div class="ne2-tl-row">
+      <div class="ne2-tl-badge">Wk 3-4</div>
+      <div class="ne2-tl-text">
+        <strong>Shedding Slows</strong>
+        <span>DHT-blocking compounds taking effect. Some notice less hair in the shower.</span>
+      </div>
+    </div>
+    <div class="ne2-tl-row">
+      <div class="ne2-tl-badge">Mo 2-3</div>
+      <div class="ne2-tl-text">
+        <strong>Dormant Follicles Reactivate</strong>
+        <span>Less hair in the drain. Less on the brush. Follicles stabilizing.</span>
+      </div>
+    </div>
+    <div class="ne2-tl-row">
+      <div class="ne2-tl-badge">Mo 3+</div>
+      <div class="ne2-tl-text">
+        <strong>Visible Density</strong>
+        <span>New growth at the hairline. Thicker strands. This is why you did not quit in week two.</span>
+      </div>
+    </div>
+
+    <div class="ne2-callout ne2-warm">
+      Every body responds differently. The women who see the strongest results stay consistent for <u>90 days or more</u>. That is why we offer a 90-day risk-free guarantee.
+    </div>
+  </div>
+
+  <hr class="ne2-div">
+
+  <!-- ═══════ PART 4: WHY TOPICALS FAIL ═══════ -->
+  <div class="ne2-section">
+    <div class="ne2-section-num">Part 4</div>
+    <h2>Why Topicals Alone Fail</h2>
+    <p class="ne2-lead">If surface products could fix this, you would not still be looking.</p>
+
+    <ul class="ne2-points ne2-red">
+      <li><u>Shampoos clean your scalp.</u> They cannot block a hormone produced inside your body.</li>
+      <li><u>Biotin supports hair structure.</u> It does not address DHT. If thinning is DHT-driven, biotin alone will not stop it.</li>
+      <li><strong>Hair oils support circulation.</strong> They do not stop the signal shrinking your follicles.</li>
+      <li><strong>Most serums coat the strand.</strong> The follicle damage beneath the scalp continues unchecked.</li>
+      <li><strong>The root cause is internal.</strong> Real solutions have to include internal support first.</li>
+    </ul>
+
+    <div class="ne2-callout ne2-alert">
+      <strong>The distinction:</strong> Internal support blocks DHT where it is produced. Topical support creates a healthy surface environment. You need both. But internal comes first.
+    </div>
+  </div>
+
+  <hr class="ne2-div">
+
+  <!-- ═══════ PART 5: THE FULL SYSTEM ═══════ -->
+  <div class="ne2-section">
+    <div class="ne2-section-num">Part 5</div>
+    <h2>Internal + Topical. The Full System.</h2>
+    <p class="ne2-lead">Softgels handle the inside. The serum handles the outside.</p>
+
+    <div class="ne2-sys-grid">
+      <div class="ne2-sys-card ne2-int">
+        <div class="ne2-st">Internal</div>
+        <h4>Softgels</h4>
+        <ul>
+          <li>Blocks DHT at the source</li>
+          <li>2,000mg Pumpkin Seed Oil</li>
+          <li>200mg Saw Palmetto</li>
+          <li>Reduces follicle inflammation</li>
+          <li>2 softgels daily with food</li>
+        </ul>
+      </div>
+      <div class="ne2-sys-card ne2-top">
+        <div class="ne2-st">Topical</div>
+        <h4>Regrowth Serum</h4>
+        <ul>
+          <li>Actives delivered to the scalp</li>
+          <li>Built-in massager applicator</li>
+          <li>Caffeine + Salicylic Acid</li>
+          <li>Clears buildup, boosts circulation</li>
+          <li>Once daily, not greasy</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ne2-div">
+
+  <!-- ═══════ PART 6: SERUM INGREDIENTS ═══════ -->
+  <div class="ne2-section">
+    <div class="ne2-section-num">Part 6</div>
+    <h2>What Is In the Serum</h2>
+    <p class="ne2-lead">Every ingredient has a specific job at the follicle level.</p>
+
+    <div class="ne2-section-img">
+      <!-- <img src="YOUR-SERUM-INGREDIENTS.jpg" alt="Serum ingredients"> -->
+      <div class="ne2-ph">
+        <div class="ne2-lbl">SERUM INGREDIENTS (720 x 405)</div>
+        <div class="ne2-pr">
+          <b>PROMPT:</b> Photorealistic overhead flat lay of a sleek dark dropper serum bottle (matte black or dark amber) center on white marble. Around it: coffee beans, raw pumpkin seeds, a slice of aloe leaf, a sprig of fresh mint, a small dish with a golden oil drop. Soft diffused natural light from upper left. Clean editorial wellness photography. Warm neutral tones. Minimalist. No branded labels. No people. No watermarks. 16:9.
+        </div>
+      </div>
+    </div>
+
+    <div class="ne2-ing-card">
+      <div class="ne2-ing-icon">☕</div>
+      <div class="ne2-ing-body">
+        <h4>Caffeine</h4>
+        <p>Performed comparably to minoxidil in studies. No dependency. Results do not disappear when you stop.</p>
+      </div>
+    </div>
+    <div class="ne2-ing-card">
+      <div class="ne2-ing-icon ne2-or">🎃</div>
+      <div class="ne2-ing-body">
+        <h4>Pumpkin Seed Oil</h4>
+        <p>40% more hair growth over 24 weeks in research. Reinforces what the softgels do internally.</p>
+      </div>
+    </div>
+    <div class="ne2-ing-card">
+      <div class="ne2-ing-icon">💧</div>
+      <div class="ne2-ing-body">
+        <h4>Dexpanthenol</h4>
+        <p>Extends the growth phase. Hair grows longer before it sheds.</p>
+      </div>
+    </div>
+    <div class="ne2-ing-card">
+      <div class="ne2-ing-icon ne2-or">🧴</div>
+      <div class="ne2-ing-body">
+        <h4>Salicylic Acid</h4>
+        <p>Clears buildup blocking follicle openings. If the path is clogged, nothing reaches the root.</p>
+      </div>
+    </div>
+    <div class="ne2-ing-card">
+      <div class="ne2-ing-icon">❄</div>
+      <div class="ne2-ing-body">
+        <h4>L-Menthol</h4>
+        <p>Increases blood circulation directly at the follicle. Better delivery of active compounds.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ne2-div">
+
+  <!-- ═══════ PART 7: HOW TO USE ═══════ -->
+  <div class="ne2-section">
+    <div class="ne2-section-num">Part 7</div>
+    <h2>How to Use Both Together</h2>
+    <p class="ne2-lead">Less than 5 minutes total per day.</p>
+
+    <ul class="ne2-points">
+      <li><u>Morning:</u> 2 softgels with breakfast. Full glass of water. Wait 30 min before caffeine.</li>
+      <li><u>Throughout the day:</u> Stay hydrated. Reduce processed foods. Move for 20 minutes.</li>
+      <li><u>Evening:</u> Apply serum to scalp with built-in massager. Massage 2 to 3 minutes.</li>
+      <li><u>Sleep:</u> 7 to 8 hours. Growth hormone peaks overnight. Repair happens here.</li>
+    </ul>
+  </div>
+
+  <!-- ═══════ CTA ═══════ -->
+  <div class="ne2-cta-block">
+    <h3>Start With Internal Support</h3>
+    <p>2,000mg cold-pressed Pumpkin Seed Oil. 200mg Saw Palmetto. Two softgels daily.</p>
+    <a href="https://mynutraessence.com/products/seed" class="ne2-cta-btn">Shop NutraEssence Softgels</a>
+    <div class="ne2-cta-sub">90-Day Risk-Free Guarantee · Free Shipping</div>
+  </div>
+
+  <hr class="ne2-div">
+
+  <!-- ═══════ SERUM UPSELL ═══════ -->
+  <div class="ne2-upsell">
+    <div class="ne2-upsell-inner">
+      <div class="ne2-upsell-img">
+        <!-- <img src="YOUR-SERUM.jpg" alt="NutraEssence Regrowth Complex Serum"> -->
+        <div class="ne2-ph">
+          <div class="ne2-lbl">SERUM PRODUCT IMAGE</div>
+          <div class="ne2-pr">
+            <b>PROMPT:</b> Photorealistic product shot of a premium hair serum bottle with built-in scalp massager applicator tip. Dark amber or matte black bottle, white label reading "Regrowth Complex Serum" and "nutraessence". Clean white surface, soft studio lighting. One drop of golden serum near the tip. Minimal, premium aesthetic. No people. No watermarks.
+          </div>
+        </div>
+      </div>
+      <div class="ne2-upsell-body">
+        <div class="ne2-upsell-tag">Complete Your Routine</div>
+        <h3>Add Topical Support</h3>
+        <p>Softgels block DHT from inside. The serum delivers actives directly to the scalp. Both sides covered.</p>
+        <ul class="ne2-upsell-pts">
+          <li>Caffeine + Pumpkin Seed Oil + Salicylic Acid</li>
+          <li>Built-in massager. Once daily. Not greasy.</li>
+          <li>No dependency. Results do not reverse.</li>
+        </ul>
+        <a href="https://mynutraessence.com/products/serum" class="ne2-cta-btn ne2-orange">Add The Serum To My Routine</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="ne2-disclaimer">
+    *These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Individual results may vary.
+  </div>
+
+</div>
+</div>
