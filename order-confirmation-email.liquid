@@ -16,7 +16,6 @@
   CDN ASSETS — search for "PASTE-" to find every placeholder that needs
   a real hosted URL before this goes live:
     - PASTE-LOGO-CDN-URL-HERE      → NutraEssence logo (header)
-    - PASTE-EMAIL-ICON-CDN-URL-HERE → small envelope icon (contact row)
     - PASTE-MAIL-ICON-CDN-URL-HERE  → circular mail icon ("Any questions?" box)
 -->
 {% assign order_date = 'now' | date: "%b %-d" %}
@@ -57,44 +56,16 @@
     padding: 28px 20px 24px;
     margin-bottom: 16px;
   }
-  .tracker-node {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 13px;
-    line-height: 30px;
-  }
-  .tracker-node--done { background: #CC4B18; color: #ffffff; font-weight: 700; }
-  .tracker-node--pending { background: #ffffff; border: 2px solid #E2E0DC; }
-  .tracker-line { height: 2px; background: #E2E0DC; font-size: 0; line-height: 0; }
   .tracker-caption {
-    padding-top: 8px;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: #1A1A1A;
   }
-  .tracker-caption--muted { color: #9a9a9a; }
-  .tracker-date { display: block; font-size: 11px; font-weight: 400; letter-spacing: 0; color: #9a9a9a; padding-top: 2px; }
+  .tracker-date { display: inline-block; font-size: 11px; font-weight: 400; letter-spacing: 0; color: #9a9a9a; padding-left: 8px; text-transform: none; }
 
-  .step-labels { width: 100%; margin-top: 20px; border: 1px solid #E2E0DC; border-radius: 8px; background: #ffffff; }
-  .step-labels td {
-    text-align: center;
-    padding: 10px 6px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: #9a9a9a;
-    border-right: 1px solid #E2E0DC;
-  }
-  .step-labels td:last-child { border-right: none; }
-  .step-labels td.step-labels--active { color: #CC4B18; }
-
-  .hero-copy { padding: 20px 4px 0; text-align: center; font-size: 14px; line-height: 1.6; color: #3D3D3D; }
+  .hero-copy { padding: 22px 4px 0; text-align: center; font-size: 14px; line-height: 1.6; color: #3D3D3D; }
 
   .cta-cell { padding: 20px 0 4px; text-align: center; }
   .cta-button {
@@ -184,18 +155,6 @@
   .customer-body { font-size: 13px; line-height: 1.6; color: #1A1A1A; }
 
   /* ── Block 4: Contact ── */
-  .contact-row {
-    border: 1px solid #E2E0DC;
-    border-radius: 10px;
-    background: #ffffff;
-    padding: 14px 18px;
-    margin-bottom: 16px;
-    font-size: 13px;
-    line-height: 1.6;
-    color: #3D3D3D;
-  }
-  .contact-row img { width: 20px; height: 20px; }
-
   .questions-box {
     background: #FFEFEA;
     border-radius: 10px;
@@ -241,34 +200,48 @@
           <tr>
             <td>
               <div class="hero-box">
+                <!--
+                  Order-confirmation trackers only ever show one real state
+                  (placed) — the other two nodes are just visual "more to
+                  come" markers, not live tracking, so they carry no label
+                  or date. Each dot/line segment below is its own tiny
+                  fixed-height nested table (not a plain <td> with CSS
+                  height) because most email clients ignore CSS height on
+                  bare table cells and will stretch it to match the row —
+                  that's what produced the grey block instead of a thin line.
+                -->
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                   <tr>
-                    <td width="30" class="tracker-node tracker-node--done">&#10003;</td>
-                    <td class="tracker-line"></td>
-                    <td width="30" class="tracker-node tracker-node--pending"></td>
-                    <td class="tracker-line"></td>
-                    <td width="30" class="tracker-node tracker-node--pending"></td>
+                    <td width="30" valign="middle">
+                      <table role="presentation" width="30" cellpadding="0" cellspacing="0"><tr>
+                        <td width="30" height="30" align="center" valign="middle" style="width:30px; height:30px; border-radius:50%; background:#CC4B18; color:#ffffff; font-size:13px; font-weight:700; line-height:30px;">&#10003;</td>
+                      </tr></table>
+                    </td>
+                    <td valign="middle">
+                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+                        <td height="2" style="font-size:2px; line-height:2px; background:#E2E0DC;">&nbsp;</td>
+                      </tr></table>
+                    </td>
+                    <td width="30" valign="middle">
+                      <table role="presentation" width="30" cellpadding="0" cellspacing="0"><tr>
+                        <td width="30" height="30" align="center" valign="middle" style="width:30px; height:30px; border-radius:50%; background:#ffffff; border:2px solid #E2E0DC;">&nbsp;</td>
+                      </tr></table>
+                    </td>
+                    <td valign="middle">
+                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+                        <td height="2" style="font-size:2px; line-height:2px; background:#E2E0DC;">&nbsp;</td>
+                      </tr></table>
+                    </td>
+                    <td width="30" valign="middle">
+                      <table role="presentation" width="30" cellpadding="0" cellspacing="0"><tr>
+                        <td width="30" height="30" align="center" valign="middle" style="width:30px; height:30px; border-radius:50%; background:#ffffff; border:2px solid #E2E0DC;">&nbsp;</td>
+                      </tr></table>
+                    </td>
                   </tr>
                   <tr>
-                    <td style="text-align:left;">
-                      <div class="tracker-caption">Order Placed<span class="tracker-date">{{ order_date }}</span></div>
+                    <td colspan="5" style="padding-top: 10px; text-align: left;">
+                      <span class="tracker-caption">Order Placed<span class="tracker-date">{{ order_date }}</span></span>
                     </td>
-                    <td></td>
-                    <td style="text-align:center;">
-                      <div class="tracker-caption tracker-caption--muted">Shipping</div>
-                    </td>
-                    <td></td>
-                    <td style="text-align:right;">
-                      <div class="tracker-caption tracker-caption--muted">Delivery</div>
-                    </td>
-                  </tr>
-                </table>
-
-                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="step-labels">
-                  <tr>
-                    <td class="step-labels--active">Order Placed</td>
-                    <td>Shipping</td>
-                    <td>Delivery</td>
                   </tr>
                 </table>
 
@@ -411,19 +384,17 @@
           <!-- ═══════════ Block 4: Contact ═══════════ -->
           <tr>
             <td>
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="contact-row">
-                <tr>
-                  <td width="28">
-                    <!-- TODO: replace with your CDN email icon URL -->
-                    <img src="PASTE-EMAIL-ICON-CDN-URL-HERE" alt="" width="20" height="20">
-                  </td>
-                  <td>
-                    If you have any questions, reply to this email or contact us at
-                    <a href="mailto:support@mynutraessence.com">support@mynutraessence.com</a>
-                  </td>
-                </tr>
-              </table>
-
+              <!--
+                NOTE: only one support address is used below
+                (support@mynutraessence.com) — the previous draft had the
+                link text and the mailto: destination pointing at two
+                different addresses (support@mynutraessence.com displayed,
+                sureorder@gmail.com linked), which is a broken/misleading
+                link. Swap CONTACT_EMAIL below if that's not the right
+                inbox — just make sure the visible text and href always
+                match.
+              -->
+              {% assign contact_email = "support@mynutraessence.com" %}
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="questions-box">
                 <tr>
                   <td width="52" class="questions-icon" style="vertical-align: top;">
@@ -433,8 +404,8 @@
                   <td style="vertical-align: top; padding-left: 4px;">
                     <div class="questions-heading">Any questions?</div>
                     <div class="questions-body">
-                      If you need any help whatsoever or just want to chat, email us anytime
-                      <a href="mailto:sureorder@gmail.com">sureorder@gmail.com</a>
+                      If you need any help whatsoever or just want to chat, email us anytime at
+                      <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>
                     </div>
                   </td>
                 </tr>
