@@ -1,12 +1,33 @@
+<!--
+  NUTRAESSENCE — ORDER CONFIRMATION EMAIL
+  Built to the finalized layout: Header → Tracker hero → Order number →
+  Order details → Customer details → Contact block.
+
+  WHERE TO PASTE THIS:
+  Shopify Admin → Settings → Notifications → "Order confirmation"
+  → paste this whole file into the template body.
+
+  SUBJECT LINE (goes in the separate "Email subject" field, not this body):
+    Order {{ order_name }} is confirmed
+
+  PREVIEW TEXT: set via the hidden preheader div right below <body> —
+  edit the sentence in there directly.
+
+  CDN ASSETS — search for "PASTE-" to find every placeholder that needs
+  a real hosted URL before this goes live:
+    - PASTE-LOGO-CDN-URL-HERE      → NutraEssence logo (header)
+    - PASTE-EMAIL-ICON-CDN-URL-HERE → small envelope icon (contact row)
+    - PASTE-MAIL-ICON-CDN-URL-HERE  → circular mail icon ("Any questions?" box)
+-->
+{% assign order_date = 'now' | date: "%b %-d" %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Order Confirmation Preview | NutraEssence</title>
+<title>Order {{ order_name }} is confirmed</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-
   body, table, td { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
   table { border-collapse: collapse; }
   img { border: 0; display: block; }
@@ -24,18 +45,12 @@
   .wrapper { width: 100%; background: #F3EFE8; padding: 32px 16px; }
   .container { max-width: 560px; margin: 0 auto; }
 
+  /* ── Block 1: Header ── */
   .header-cell { text-align: center; padding-bottom: 20px; }
-  .logo-placeholder {
-    display: inline-block;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.32em;
-    color: #1A1A1A;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
+  .header-cell img { margin: 0 auto 16px; }
   .header-title { margin: 0; font-size: 22px; font-weight: 700; color: #1A1A1A; }
 
+  /* ── Block 1: Hero (tracker) ── */
   .hero-box {
     background: #FBF4EA;
     border-radius: 14px;
@@ -95,6 +110,7 @@
     text-transform: uppercase;
   }
 
+  /* ── Block 2: Order number strip ── */
   .order-strip {
     border: 1px solid #E2E0DC;
     border-radius: 10px;
@@ -106,6 +122,7 @@
   }
   .order-strip strong { font-weight: 700; }
 
+  /* ── Block 3: Order details ── */
   .section-heading {
     font-size: 11px;
     font-weight: 700;
@@ -142,6 +159,7 @@
   .totals-discount { color: #CC4B18; }
   .totals-row--total td { padding-top: 12px; font-size: 15px; font-weight: 700; color: #1A1A1A; border-top: 1px solid #E2E0DC; }
 
+  /* ── Block 4: Customer details ── */
   .customer-card {
     border: 1px solid #E2E0DC;
     border-radius: 10px;
@@ -165,6 +183,7 @@
   }
   .customer-body { font-size: 13px; line-height: 1.6; color: #1A1A1A; }
 
+  /* ── Block 4: Contact ── */
   .contact-row {
     border: 1px solid #E2E0DC;
     border-radius: 10px;
@@ -175,34 +194,14 @@
     line-height: 1.6;
     color: #3D3D3D;
   }
-  .icon-placeholder {
-    width: 20px;
-    height: 20px;
-    border-radius: 4px;
-    background: #E2E0DC;
-    display: inline-block;
-    text-align: center;
-    line-height: 20px;
-    font-size: 11px;
-    color: #6B6B6B;
-  }
+  .contact-row img { width: 20px; height: 20px; }
 
   .questions-box {
     background: #FFEFEA;
     border-radius: 10px;
     padding: 18px 20px;
   }
-  .icon-placeholder--round {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #CC4B18;
-    display: inline-block;
-    text-align: center;
-    line-height: 40px;
-    font-size: 17px;
-    color: #ffffff;
-  }
+  .questions-icon img { width: 40px; height: 40px; border-radius: 50%; }
   .questions-heading { font-size: 15px; font-weight: 700; color: #1A1A1A; padding-bottom: 4px; }
   .questions-body { font-size: 13px; line-height: 1.6; color: #6B6B6B; }
   .questions-body a { color: #CC4B18; font-weight: 600; }
@@ -219,20 +218,25 @@
 </head>
 <body>
 
+  <!-- Preview text / preheader (hidden, edit the sentence below) -->
+  <div style="display:none; max-height:0; overflow:hidden; font-size:1px; line-height:1px; color:#F3EFE8; opacity:0;">
+    Your order {{ order_name }} is confirmed — here's what's next.
+  </div>
+
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="wrapper">
     <tr>
       <td>
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="container">
 
-          <!-- Block 1: Header -->
+          <!-- ═══════════ Block 1: Header ═══════════ -->
           <tr>
             <td class="header-cell">
-              <span class="logo-placeholder">NutraEssence</span>
+              <img src="https://cdn.shopify.com/s/files/1/0761/2776/4736/files/Flows_Image_6.png?v=1786957059" alt="{{ shop.name }}" width="150">
               <p class="header-title">Thank You For Your Order</p>
             </td>
           </tr>
 
-          <!-- Block 1: Hero (tracker) -->
+          <!-- ═══════════ Block 1: Hero (tracker) ═══════════ -->
           <tr>
             <td>
               <div class="hero-box">
@@ -246,7 +250,7 @@
                   </tr>
                   <tr>
                     <td style="text-align:left;">
-                      <div class="tracker-caption">Order Placed<span class="tracker-date">Aug 17</span></div>
+                      <div class="tracker-caption">Order Placed<span class="tracker-date">{{ order_date }}</span></div>
                     </td>
                     <td></td>
                     <td style="text-align:center;">
@@ -268,81 +272,90 @@
                 </table>
 
                 <p class="hero-copy">
-                  Hello Smiles, we've received your order and it's now being prepared.
+                  Hello {{ customer.first_name }}, we've received your order and it's now being prepared.
                   We'll send a confirmation with tracking as soon as it's on the way.
                 </p>
 
-                <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                  <tr>
-                    <td class="cta-cell">
-                      <a href="#" class="cta-button">View Your Order</a>
-                    </td>
-                  </tr>
-                </table>
+                {% if order_status_url %}
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td class="cta-cell">
+                        <a href="{{ order_status_url }}" class="cta-button">View Your Order</a>
+                      </td>
+                    </tr>
+                  </table>
+                {% endif %}
               </div>
             </td>
           </tr>
 
-          <!-- Block 2: Order number -->
+          <!-- ═══════════ Block 2: Order number ═══════════ -->
           <tr>
             <td>
               <div class="order-strip">
-                Order: <strong>#NE1042</strong>
+                Order: <strong>{{ order_name }}</strong>{% if po_number %} &nbsp;·&nbsp; PO #{{ po_number }}{% endif %}
               </div>
             </td>
           </tr>
 
-          <!-- Block 3: Order details -->
+          <!-- ═══════════ Block 3: Order details ═══════════ -->
           <tr>
             <td>
               <div class="section-heading">Order Details</div>
               <div class="details-card">
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                  <tr class="item-row">
-                    <td width="56">
-                      <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=200&h=200&fit=crop" alt="NutraEssence Seed3" class="item-image">
-                    </td>
-                    <td>
-                      <div class="item-title">NutraEssence Seed3</div>
-                      <div class="item-variant">30-Day Supply</div>
-                      <div class="item-qty">Qty: 1</div>
-                    </td>
-                    <td class="item-price">$45.90</td>
-                  </tr>
-                  <tr class="item-row">
-                    <td width="56">
-                      <img src="https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=200&h=200&fit=crop" alt="Daily Reset Drops" class="item-image">
-                    </td>
-                    <td>
-                      <div class="item-title">Daily Reset Drops</div>
-                      <div class="item-variant">1 fl oz</div>
-                      <div class="item-qty">Qty: 2</div>
-                    </td>
-                    <td class="item-price">$38.00</td>
-                  </tr>
+                  {% for line in line_items %}
+                    <tr class="item-row">
+                      <td width="56">
+                        {% if line.image %}
+                          <img src="{{ line.image | img_url: '112x112' }}" alt="{{ line.title | escape }}" class="item-image">
+                        {% else %}
+                          <img src="{{ 'notifications/no-image.png' | shopify_asset_url }}" alt="" class="item-image">
+                        {% endif %}
+                      </td>
+                      <td style="padding-left: 0;">
+                        <div class="item-title">{{ line.title }}</div>
+                        {% if line.variant.title != 'Default Title' %}
+                          <div class="item-variant">{{ line.variant.title }}</div>
+                        {% endif %}
+                        <div class="item-qty">Qty: {{ line.quantity }}</div>
+                      </td>
+                      <td class="item-price">
+                        {% if line.final_line_price > 0 %}
+                          {{ line.final_line_price | money }}
+                        {% else %}
+                          Free
+                        {% endif %}
+                      </td>
+                    </tr>
+                  {% endfor %}
                 </table>
 
                 <div class="totals">
                   <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                     <tr class="totals-row">
                       <td>Subtotal</td>
-                      <td class="totals-value">$92.00</td>
+                      <td class="totals-value">{{ subtotal_price | money }}</td>
                     </tr>
-                    <tr class="totals-row">
-                      <td class="totals-discount">Order Discount</td>
-                      <td class="totals-value totals-discount">&minus;$8.10</td>
-                    </tr>
-                    <tr class="totals-row">
-                      <td>Shipping</td>
-                      <td class="totals-value">Free</td>
-                    </tr>
+                    {% if total_discounts > 0 %}
+                      <tr class="totals-row">
+                        <td class="totals-discount">Order Discount</td>
+                        <td class="totals-value totals-discount">&minus;{{ total_discounts | money }}</td>
+                      </tr>
+                    {% endif %}
+                    {% if requires_shipping %}
+                      <tr class="totals-row">
+                        <td>Shipping</td>
+                        <td class="totals-value">{% if shipping_price > 0 %}{{ shipping_price | money }}{% else %}Free{% endif %}</td>
+                      </tr>
+                    {% endif %}
                     <tr class="totals-row">
                       <td>Taxes</td>
-                      <td class="totals-value">$7.14</td>
+                      <td class="totals-value">{{ tax_price | money }}</td>
                     </tr>
                     <tr class="totals-row totals-row--total">
                       <td>Total</td>
-                      <td class="totals-value">$91.04</td>
+                      <td class="totals-value">{{ total_price | money_with_currency }}</td>
                     </tr>
                   </table>
                 </div>
@@ -350,7 +363,7 @@
             </td>
           </tr>
 
-          <!-- Block 4: Customer details -->
+          <!-- ═══════════ Block 4: Customer details ═══════════ -->
           <tr>
             <td>
               <div class="section-heading">Customer Details</div>
@@ -359,24 +372,34 @@
                   <td class="customer-cell">
                     <div class="customer-heading">Shipping address</div>
                     <div class="customer-body">
-                      Smiles Davis<br>
-                      600 Montgomery St<br>
-                      San Francisco, CA 94111
+                      {% if requires_shipping and shipping_address %}
+                        {{ shipping_address | format_address }}
+                      {% else %}
+                        &mdash;
+                      {% endif %}
                     </div>
                   </td>
                   <td class="customer-cell">
                     <div class="customer-heading">Billing address</div>
                     <div class="customer-body">
-                      Smiles Davis<br>
-                      600 Montgomery St<br>
-                      San Francisco, CA 94111
+                      {% if billing_address %}
+                        {{ billing_address | format_address }}
+                      {% else %}
+                        &mdash;
+                      {% endif %}
                     </div>
                   </td>
                 </tr>
                 <tr>
                   <td class="customer-cell" style="border-bottom: none;">
                     <div class="customer-heading">Shipping method</div>
-                    <div class="customer-body">Standard (3–5 business days)</div>
+                    <div class="customer-body">
+                      {% if requires_shipping and shipping_method %}
+                        {{ shipping_method.title }}
+                      {% else %}
+                        &mdash;
+                      {% endif %}
+                    </div>
                   </td>
                   <td class="customer-cell" style="border-bottom: none;">&nbsp;</td>
                 </tr>
@@ -384,31 +407,22 @@
             </td>
           </tr>
 
-          <!-- Block 4: Contact -->
+          <!-- ═══════════ Block 4: Contact ═══════════ -->
           <tr>
             <td>
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="contact-row">
-                <tr>
-                  <td width="28">
-                    <span class="icon-placeholder">&#9993;</span>
-                  </td>
-                  <td>
-                    If you have any questions, reply to this email or contact us at
-                    <a href="mailto:support@mynutraessence.com">support@mynutraessence.com</a>
-                  </td>
-                </tr>
-              </table>
+              
 
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="questions-box">
                 <tr>
-                  <td width="52" style="vertical-align: top;">
-                    <span class="icon-placeholder--round">&#9993;</span>
+                  <td width="52" class="questions-icon" style="vertical-align: top;">
+                    <!-- TODO: replace with your CDN mail icon URL -->
+                    <img src="https://cdn.shopify.com/s/files/1/0761/2776/4736/files/NicePng_email-icon-png-transparent_903587.png?v=1786957541" alt="" width="40" height="40">
                   </td>
                   <td style="vertical-align: top; padding-left: 4px;">
                     <div class="questions-heading">Any questions?</div>
                     <div class="questions-body">
-                      If you need any help whatsoever or just want to chat, email us anytime
-                      <a href="mailto:sureorder@gmail.com">sureorder@gmail.com</a>
+                      If you have any questions, reply to this email or contact us at
+                      <a href="mailto:sureorder@gmail.com">support@mynutraessence.com</a>
                     </div>
                   </td>
                 </tr>
@@ -416,10 +430,10 @@
             </td>
           </tr>
 
-          <!-- Footer -->
+          <!-- ═══════════ Footer ═══════════ -->
           <tr>
             <td class="footer">
-              <p class="footer-text">NutraEssence</p>
+              <p class="footer-text">{{ shop.name }}</p>
             </td>
           </tr>
 
@@ -429,3 +443,12 @@
   </table>
 </body>
 </html>
+
+{%- if billing_address.country_code == 'DE' or billing_address.country_code == 'DK' -%}
+  {%- if shop.terms_of_service.body != blank -%}
+    {{ shop.terms_of_service | attach_as_pdf: "Terms of service" }}
+  {%- endif -%}
+  {%- if shop.refund_policy.body != blank -%}
+    {{ shop.refund_policy | attach_as_pdf: "Refund policy" }}
+  {%- endif -%}
+{%- endif -%}
