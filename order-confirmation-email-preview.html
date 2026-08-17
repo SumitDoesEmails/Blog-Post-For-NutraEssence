@@ -15,7 +15,7 @@
     margin: 0;
     padding: 0;
     background: #F3EFE8;
-    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
     color: #3D3D3D;
   }
 
@@ -24,31 +24,24 @@
   .wrapper { width: 100%; background: #F3EFE8; padding: 32px 16px; }
   .container { max-width: 560px; margin: 0 auto; }
 
-  .logo-cell { text-align: center; padding-bottom: 28px; }
-  .logo-text {
+  .header-cell { text-align: center; padding-bottom: 20px; }
+  .logo-placeholder {
+    display: inline-block;
     font-size: 15px;
     font-weight: 700;
     letter-spacing: 0.32em;
     color: #1A1A1A;
     text-transform: uppercase;
+    margin-bottom: 16px;
   }
+  .header-title { margin: 0; font-size: 22px; font-weight: 700; color: #1A1A1A; }
 
-  .headline-cell { text-align: center; padding: 0 8px 28px; }
-  .headline {
-    margin: 0 0 8px;
-    font-size: 26px;
-    line-height: 1.3;
-    font-weight: 700;
-    color: #1A1A1A;
+  .hero-box {
+    background: #FBF4EA;
+    border-radius: 14px;
+    padding: 28px 20px 24px;
+    margin-bottom: 16px;
   }
-  .subhead {
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.6;
-    color: #6B6B6B;
-  }
-
-  .tracker-wrap { padding: 4px 6px 32px; }
   .tracker-node {
     width: 30px;
     height: 30px;
@@ -58,17 +51,10 @@
     font-size: 13px;
     line-height: 30px;
   }
-  .tracker-node--done {
-    background: #CC4B18;
-    color: #ffffff;
-    font-weight: 700;
-  }
-  .tracker-node--pending {
-    background: #ffffff;
-    border: 2px solid #E2E0DC;
-  }
+  .tracker-node--done { background: #CC4B18; color: #ffffff; font-weight: 700; }
+  .tracker-node--pending { background: #ffffff; border: 2px solid #E2E0DC; }
   .tracker-line { height: 2px; background: #E2E0DC; font-size: 0; line-height: 0; }
-  .tracker-label {
+  .tracker-caption {
     padding-top: 8px;
     font-size: 10px;
     font-weight: 600;
@@ -76,270 +62,364 @@
     text-transform: uppercase;
     color: #1A1A1A;
   }
-  .tracker-label--muted { color: #9a9a9a; }
+  .tracker-caption--muted { color: #9a9a9a; }
   .tracker-date { display: block; font-size: 11px; font-weight: 400; letter-spacing: 0; color: #9a9a9a; padding-top: 2px; }
 
-  .meta-row td { padding-bottom: 20px; font-size: 13px; }
-  .order-number { color: #6B6B6B; }
-  .order-number strong { color: #1A1A1A; }
-  .view-order-link { text-align: right; font-weight: 600; text-decoration: underline; }
-
-  .card {
-    background: #ffffff;
-    border: 1px solid #E2E0DC;
-    border-radius: 14px;
-    overflow: hidden;
+  .step-labels { width: 100%; margin-top: 20px; border: 1px solid #E2E0DC; border-radius: 8px; background: #ffffff; }
+  .step-labels td {
+    text-align: center;
+    padding: 10px 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #9a9a9a;
+    border-right: 1px solid #E2E0DC;
   }
-  .card-inner { padding: 22px 22px 4px; }
+  .step-labels td:last-child { border-right: none; }
+  .step-labels td.step-labels--active { color: #CC4B18; }
 
-  .item-row td { padding-bottom: 20px; vertical-align: top; }
+  .hero-copy { padding: 20px 4px 0; text-align: center; font-size: 14px; line-height: 1.6; color: #3D3D3D; }
+
+  .cta-cell { padding: 20px 0 4px; text-align: center; }
+  .cta-button {
+    display: inline-block;
+    background: #CC4B18;
+    color: #ffffff !important;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 13px 32px;
+    border-radius: 999px;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .order-strip {
+    border: 1px solid #E2E0DC;
+    border-radius: 10px;
+    background: #ffffff;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #1A1A1A;
+  }
+  .order-strip strong { font-weight: 700; }
+
+  .section-heading {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #9a9a9a;
+    padding: 4px 2px 10px;
+  }
+
+  .details-card {
+    border: 1px solid #E2E0DC;
+    border-radius: 10px;
+    background: #ffffff;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  .item-row td { padding: 16px 18px; border-bottom: 1px solid #E2E0DC; vertical-align: top; }
   .item-image {
-    width: 64px;
-    height: 64px;
+    width: 56px;
+    height: 56px;
     border-radius: 8px;
     border: 1px solid #E2E0DC;
     object-fit: cover;
   }
   .item-title { font-size: 14px; font-weight: 600; color: #1A1A1A; }
-  .item-variant, .item-plan { font-size: 12px; color: #6B6B6B; padding-top: 2px; }
-  .item-plan { color: #CC4B18; font-weight: 500; }
+  .item-variant { font-size: 12px; color: #6B6B6B; padding-top: 2px; }
+  .item-qty { font-size: 12px; color: #6B6B6B; padding-top: 4px; }
   .item-price { font-size: 14px; font-weight: 600; color: #1A1A1A; text-align: right; white-space: nowrap; }
-  .item-price-original { font-size: 12px; color: #9a9a9a; text-decoration: line-through; display: block; font-weight: 400; }
 
-  .divider { border-top: 1px solid #E2E0DC; margin: 0 22px; }
-
-  .totals { padding: 18px 22px 22px; }
+  .totals { padding: 16px 18px 20px; }
   .totals-row td { padding: 4px 0; font-size: 13px; color: #6B6B6B; }
   .totals-row .totals-value { text-align: right; color: #1A1A1A; }
-  .totals-row--total td { padding-top: 12px; font-size: 15px; font-weight: 700; color: #1A1A1A; border-top: 1px solid #E2E0DC; }
   .totals-discount { color: #CC4B18; }
+  .totals-row--total td { padding-top: 12px; font-size: 15px; font-weight: 700; color: #1A1A1A; border-top: 1px solid #E2E0DC; }
 
-  .cta-cell { padding: 28px 0 4px; text-align: center; }
-  .cta-button {
-    display: inline-block;
-    background: #CC4B18;
-    color: #ffffff !important;
-    font-size: 14px;
-    font-weight: 600;
-    padding: 13px 30px;
-    border-radius: 999px;
-    text-decoration: none;
+  .customer-card {
+    border: 1px solid #E2E0DC;
+    border-radius: 10px;
+    background: #ffffff;
+    margin-bottom: 16px;
   }
-  .cta-secondary { display: block; padding-top: 14px; font-size: 12px; color: #6B6B6B; }
-  .cta-secondary a { color: #6B6B6B; text-decoration: underline; }
-
-  .info-section { padding: 36px 4px 0; }
-  .info-heading {
+  .customer-cell {
+    width: 50%;
+    padding: 16px 18px;
+    vertical-align: top;
+    border-bottom: 1px solid #E2E0DC;
+  }
+  .customer-cell + .customer-cell { border-left: 1px solid #E2E0DC; }
+  .customer-heading {
     font-size: 10px;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: #9a9a9a;
     padding-bottom: 6px;
   }
-  .info-body { font-size: 13px; line-height: 1.6; color: #3D3D3D; }
-  .info-col { width: 50%; vertical-align: top; padding-bottom: 24px; }
+  .customer-body { font-size: 13px; line-height: 1.6; color: #1A1A1A; }
 
-  .note-box {
-    background: #F7F6F3;
+  .contact-row {
+    border: 1px solid #E2E0DC;
     border-radius: 10px;
-    padding: 16px 18px;
-    font-size: 12.5px;
+    background: #ffffff;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    font-size: 13px;
     line-height: 1.6;
-    color: #6B6B6B;
-    margin-top: 8px;
+    color: #3D3D3D;
   }
-  .note-box strong { color: #1A1A1A; }
+  .icon-placeholder {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background: #E2E0DC;
+    display: inline-block;
+    text-align: center;
+    line-height: 20px;
+    font-size: 11px;
+    color: #6B6B6B;
+  }
 
-  .footer { padding: 32px 8px 0; text-align: center; }
-  .footer-text { font-size: 12px; line-height: 1.7; color: #9a9a9a; }
-  .footer-text a { color: #6B6B6B; text-decoration: underline; }
+  .questions-box {
+    background: #FFEFEA;
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .icon-placeholder--round {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #CC4B18;
+    display: inline-block;
+    text-align: center;
+    line-height: 40px;
+    font-size: 17px;
+    color: #ffffff;
+  }
+  .questions-heading { font-size: 15px; font-weight: 700; color: #1A1A1A; padding-bottom: 4px; }
+  .questions-body { font-size: 13px; line-height: 1.6; color: #6B6B6B; }
+  .questions-body a { color: #CC4B18; font-weight: 600; }
+
+  .footer { padding: 24px 8px 0; text-align: center; }
+  .footer-text { font-size: 11px; line-height: 1.7; color: #9a9a9a; }
 
   @media (max-width: 480px) {
     .wrapper { padding: 20px 12px; }
-    .headline { font-size: 22px; }
-    .info-col { display: block; width: 100%; padding-bottom: 20px; }
-    .view-order-link { text-align: left; padding-top: 4px; }
+    .customer-cell { display: block; width: 100%; border-left: none !important; }
+    .customer-cell + .customer-cell { border-top: 1px solid #E2E0DC; }
   }
 </style>
 </head>
 <body>
+
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="wrapper">
     <tr>
       <td>
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="container">
 
+          <!-- Block 1: Header -->
           <tr>
-            <td class="logo-cell">
-              <span class="logo-text">NutraEssence</span>
+            <td class="header-cell">
+              <span class="logo-placeholder">NutraEssence</span>
+              <p class="header-title">Thank You For Your Order</p>
             </td>
           </tr>
 
-          <tr>
-            <td class="headline-cell">
-              <p class="headline">Thank you for your order!</p>
-              <p class="subhead">We're getting your order ready to ship. We'll email you the moment it's on its way.</p>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tracker-wrap">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td width="30" class="tracker-node tracker-node--done">&#10003;</td>
-                  <td class="tracker-line"></td>
-                  <td width="30" class="tracker-node tracker-node--pending"></td>
-                  <td class="tracker-line"></td>
-                  <td width="30" class="tracker-node tracker-node--pending"></td>
-                </tr>
-                <tr>
-                  <td style="text-align:left;">
-                    <div class="tracker-label">Placed<span class="tracker-date">Aug 13</span></div>
-                  </td>
-                  <td></td>
-                  <td style="text-align:center;">
-                    <div class="tracker-label tracker-label--muted">Shipped</div>
-                  </td>
-                  <td></td>
-                  <td style="text-align:right;">
-                    <div class="tracker-label tracker-label--muted">Delivered</div>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
+          <!-- Block 1: Hero (tracker) -->
           <tr>
             <td>
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="meta-row">
-                <tr>
-                  <td class="order-number">Order <strong>#NE1042</strong></td>
-                  <td class="view-order-link"><a href="#">View order</a></td>
-                </tr>
-              </table>
-            </td>
-          </tr>
+              <div class="hero-box">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td width="30" class="tracker-node tracker-node--done">&#10003;</td>
+                    <td class="tracker-line"></td>
+                    <td width="30" class="tracker-node tracker-node--pending"></td>
+                    <td class="tracker-line"></td>
+                    <td width="30" class="tracker-node tracker-node--pending"></td>
+                  </tr>
+                  <tr>
+                    <td style="text-align:left;">
+                      <div class="tracker-caption">Order Placed<span class="tracker-date">Aug 17</span></div>
+                    </td>
+                    <td></td>
+                    <td style="text-align:center;">
+                      <div class="tracker-caption tracker-caption--muted">Shipping</div>
+                    </td>
+                    <td></td>
+                    <td style="text-align:right;">
+                      <div class="tracker-caption tracker-caption--muted">Delivery</div>
+                    </td>
+                  </tr>
+                </table>
 
-          <tr>
-            <td>
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="card">
-                <tr>
-                  <td>
-                    <div class="card-inner">
-                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                        <tr class="item-row">
-                          <td width="64">
-                            <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=200&h=200&fit=crop" alt="NutraEssence Seed3" class="item-image">
-                          </td>
-                          <td style="padding-left: 14px;">
-                            <div class="item-title">NutraEssence Seed3 &times; 1</div>
-                            <div class="item-variant">30-Day Supply</div>
-                            <div class="item-plan">Subscribe &amp; Save · Ships every 30 days</div>
-                          </td>
-                          <td class="item-price">
-                            <span class="item-price-original">$54.00</span>
-                            $45.90
-                          </td>
-                        </tr>
-                        <tr class="item-row">
-                          <td width="64">
-                            <img src="https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=200&h=200&fit=crop" alt="NutraEssence Daily Reset" class="item-image">
-                          </td>
-                          <td style="padding-left: 14px;">
-                            <div class="item-title">Daily Reset Drops &times; 2</div>
-                            <div class="item-variant">1 fl oz</div>
-                          </td>
-                          <td class="item-price">$38.00</td>
-                        </tr>
-                      </table>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="totals">
-                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                        <tr class="totals-row">
-                          <td>Subtotal</td>
-                          <td class="totals-value">$92.00</td>
-                        </tr>
-                        <tr class="totals-row">
-                          <td class="totals-discount">Discount</td>
-                          <td class="totals-value totals-discount">&minus;$8.10</td>
-                        </tr>
-                        <tr class="totals-row">
-                          <td>Shipping</td>
-                          <td class="totals-value">Free</td>
-                        </tr>
-                        <tr class="totals-row">
-                          <td>Taxes</td>
-                          <td class="totals-value">$7.14</td>
-                        </tr>
-                        <tr class="totals-row totals-row--total">
-                          <td>Total</td>
-                          <td class="totals-value">$91.04</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="step-labels">
+                  <tr>
+                    <td class="step-labels--active">Order Placed</td>
+                    <td>Shipping</td>
+                    <td>Delivery</td>
+                  </tr>
+                </table>
 
-          <tr>
-            <td class="cta-cell">
-              <a href="#" class="cta-button">Track your order</a>
-              <span class="cta-secondary">or <a href="#">keep browsing</a></span>
-            </td>
-          </tr>
+                <p class="hero-copy">
+                  Hello Smiles, we've received your order and it's now being prepared.
+                  We'll send a confirmation with tracking as soon as it's on the way.
+                </p>
 
-          <tr>
-            <td class="info-section">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td class="info-col">
-                    <div class="info-heading">Shipping address</div>
-                    <div class="info-body">
-                      Smiles Davis<br>
-                      600 Montgomery St<br>
-                      San Francisco, CA 94111
-                    </div>
-                  </td>
-                  <td class="info-col">
-                    <div class="info-heading">Billing address</div>
-                    <div class="info-body">
-                      Smiles Davis<br>
-                      600 Montgomery St<br>
-                      San Francisco, CA 94111
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="info-col">
-                    <div class="info-heading">Shipping method</div>
-                    <div class="info-body">Standard (3–5 business days)</div>
-                  </td>
-                  <td class="info-col">
-                    <div class="info-heading">Payment</div>
-                    <div class="info-body">Amex ending 6500</div>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <tr>
-            <td style="padding-top: 4px;">
-              <div class="note-box">
-                <strong>A small heads up:</strong> to cut down on packaging waste, we sometimes combine multi-quantity orders into one larger container instead of several small ones — you still get the exact quantity you ordered.
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td class="cta-cell">
+                      <a href="#" class="cta-button">View Your Order</a>
+                    </td>
+                  </tr>
+                </table>
               </div>
             </td>
           </tr>
 
+          <!-- Block 2: Order number -->
+          <tr>
+            <td>
+              <div class="order-strip">
+                Order: <strong>#NE1042</strong>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Block 3: Order details -->
+          <tr>
+            <td>
+              <div class="section-heading">Order Details</div>
+              <div class="details-card">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                  <tr class="item-row">
+                    <td width="56">
+                      <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=200&h=200&fit=crop" alt="NutraEssence Seed3" class="item-image">
+                    </td>
+                    <td>
+                      <div class="item-title">NutraEssence Seed3</div>
+                      <div class="item-variant">30-Day Supply</div>
+                      <div class="item-qty">Qty: 1</div>
+                    </td>
+                    <td class="item-price">$45.90</td>
+                  </tr>
+                  <tr class="item-row">
+                    <td width="56">
+                      <img src="https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=200&h=200&fit=crop" alt="Daily Reset Drops" class="item-image">
+                    </td>
+                    <td>
+                      <div class="item-title">Daily Reset Drops</div>
+                      <div class="item-variant">1 fl oz</div>
+                      <div class="item-qty">Qty: 2</div>
+                    </td>
+                    <td class="item-price">$38.00</td>
+                  </tr>
+                </table>
+
+                <div class="totals">
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                    <tr class="totals-row">
+                      <td>Subtotal</td>
+                      <td class="totals-value">$92.00</td>
+                    </tr>
+                    <tr class="totals-row">
+                      <td class="totals-discount">Order Discount</td>
+                      <td class="totals-value totals-discount">&minus;$8.10</td>
+                    </tr>
+                    <tr class="totals-row">
+                      <td>Shipping</td>
+                      <td class="totals-value">Free</td>
+                    </tr>
+                    <tr class="totals-row">
+                      <td>Taxes</td>
+                      <td class="totals-value">$7.14</td>
+                    </tr>
+                    <tr class="totals-row totals-row--total">
+                      <td>Total</td>
+                      <td class="totals-value">$91.04</td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Block 4: Customer details -->
+          <tr>
+            <td>
+              <div class="section-heading">Customer Details</div>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="customer-card">
+                <tr>
+                  <td class="customer-cell">
+                    <div class="customer-heading">Shipping address</div>
+                    <div class="customer-body">
+                      Smiles Davis<br>
+                      600 Montgomery St<br>
+                      San Francisco, CA 94111
+                    </div>
+                  </td>
+                  <td class="customer-cell">
+                    <div class="customer-heading">Billing address</div>
+                    <div class="customer-body">
+                      Smiles Davis<br>
+                      600 Montgomery St<br>
+                      San Francisco, CA 94111
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="customer-cell" style="border-bottom: none;">
+                    <div class="customer-heading">Shipping method</div>
+                    <div class="customer-body">Standard (3–5 business days)</div>
+                  </td>
+                  <td class="customer-cell" style="border-bottom: none;">&nbsp;</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Block 4: Contact -->
+          <tr>
+            <td>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="contact-row">
+                <tr>
+                  <td width="28">
+                    <span class="icon-placeholder">&#9993;</span>
+                  </td>
+                  <td>
+                    If you have any questions, reply to this email or contact us at
+                    <a href="mailto:support@mynutraessence.com">support@mynutraessence.com</a>
+                  </td>
+                </tr>
+              </table>
+
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="questions-box">
+                <tr>
+                  <td width="52" style="vertical-align: top;">
+                    <span class="icon-placeholder--round">&#9993;</span>
+                  </td>
+                  <td style="vertical-align: top; padding-left: 4px;">
+                    <div class="questions-heading">Any questions?</div>
+                    <div class="questions-body">
+                      If you need any help whatsoever or just want to chat, email us anytime
+                      <a href="mailto:sureorder@gmail.com">sureorder@gmail.com</a>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Footer -->
           <tr>
             <td class="footer">
-              <p class="footer-text">
-                Questions? Reply to this email or reach us at <a href="mailto:hello@nutraessence.com">hello@nutraessence.com</a><br>
-                NutraEssence
-              </p>
+              <p class="footer-text">NutraEssence</p>
             </td>
           </tr>
 
