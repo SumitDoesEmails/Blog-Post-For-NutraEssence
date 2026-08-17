@@ -265,16 +265,24 @@
                       </tr></table>
                     </td>
                   </tr>
+                </table>
+
+                <!--
+                  Captions live in their own table, not sharing columns
+                  with the dots above — the dots table pins column widths
+                  to 30px, so "Order Placed" wrapped into two lines when it
+                  was forced into that narrow a column. This table has no
+                  fixed widths, so each caption gets as much room as it needs.
+                -->
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                   <tr>
-                    <td style="padding-top: 10px; text-align: left;">
+                    <td width="34%" style="padding-top: 10px; text-align: left;">
                       <span class="tracker-caption">Order Placed<span class="tracker-date">{{ order_date }}</span></span>
                     </td>
-                    <td></td>
-                    <td style="padding-top: 10px; text-align: center;">
+                    <td width="32%" style="padding-top: 10px; text-align: center;">
                       <span class="tracker-caption tracker-caption--muted">Shipping</span>
                     </td>
-                    <td></td>
-                    <td style="padding-top: 10px; text-align: right;">
+                    <td width="34%" style="padding-top: 10px; text-align: right;">
                       <span class="tracker-caption tracker-caption--muted">Delivery</span>
                     </td>
                   </tr>
