@@ -65,6 +65,33 @@
   .tracker-date { display: inline-block; font-size: 11px; font-weight: 400; letter-spacing: 0; color: #9a9a9a; padding-left: 8px; text-transform: none; }
 
   .hero-copy { padding: 22px 4px 0; text-align: center; font-size: 14px; line-height: 1.6; color: #3D3D3D; }
+  .hero-note { padding: 10px 4px 0; text-align: center; font-size: 13px; line-height: 1.6; color: #6B6B6B; }
+  .hero-note strong { color: #1A1A1A; }
+
+  .pending-payment-table { margin-top: 12px; }
+  .pending-payment-table td {
+    padding: 6px 10px;
+    font-size: 12px;
+    color: #1A1A1A;
+  }
+  .pending-payment-table tr:first-child td {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #9a9a9a;
+  }
+
+  .note-box {
+    background: #F7F6F3;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: #6B6B6B;
+    margin-top: 16px;
+  }
+  .note-box strong { color: #1A1A1A; }
 
   .cta-cell { padding: 20px 0 4px; text-align: center; }
   .cta-button {
@@ -209,30 +236,30 @@
                   bare table cells and will stretch it to match the row —
                   that's what produced the grey block instead of a thin line.
                 -->
-                <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                   <tr>
-                    <td width="30" valign="middle">
-                      <table role="presentation" width="30" cellpadding="0" cellspacing="0"><tr>
-                        <td width="30" height="30" align="center" valign="middle" style="width:30px; height:30px; border-radius:50%; background:#CC4B18; color:#ffffff; font-size:13px; font-weight:700; line-height:30px;">&#10003;</td>
+                    <td width="30" valign="middle" style="border:0;">
+                      <table role="presentation" width="30" cellpadding="0" cellspacing="0" border="0"><tr>
+                        <td width="30" height="30" align="center" valign="middle" style="width:30px; height:30px; border-radius:50%; background:#CC4B18; color:#ffffff; font-size:13px; font-weight:700; line-height:30px; border:0;">&#10003;</td>
                       </tr></table>
                     </td>
-                    <td valign="middle">
-                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
-                        <td height="2" style="font-size:2px; line-height:2px; background:#E2E0DC;">&nbsp;</td>
+                    <td valign="middle" style="border:0;">
+                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+                        <td height="2" style="font-size:2px; line-height:2px; background:#CC4B18; border:0;">&nbsp;</td>
                       </tr></table>
                     </td>
-                    <td width="30" valign="middle">
-                      <table role="presentation" width="30" cellpadding="0" cellspacing="0"><tr>
+                    <td width="30" valign="middle" style="border:0;">
+                      <table role="presentation" width="30" cellpadding="0" cellspacing="0" border="0"><tr>
                         <td width="30" height="30" align="center" valign="middle" style="width:30px; height:30px; border-radius:50%; background:#ffffff; border:2px solid #E2E0DC;">&nbsp;</td>
                       </tr></table>
                     </td>
-                    <td valign="middle">
-                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
-                        <td height="2" style="font-size:2px; line-height:2px; background:#E2E0DC;">&nbsp;</td>
+                    <td valign="middle" style="border:0;">
+                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+                        <td height="2" style="font-size:2px; line-height:2px; background:#CC4B18; border:0;">&nbsp;</td>
                       </tr></table>
                     </td>
-                    <td width="30" valign="middle">
-                      <table role="presentation" width="30" cellpadding="0" cellspacing="0"><tr>
+                    <td width="30" valign="middle" style="border:0;">
+                      <table role="presentation" width="30" cellpadding="0" cellspacing="0" border="0"><tr>
                         <td width="30" height="30" align="center" valign="middle" style="width:30px; height:30px; border-radius:50%; background:#ffffff; border:2px solid #E2E0DC;">&nbsp;</td>
                       </tr></table>
                     </td>
@@ -244,10 +271,60 @@
                   </tr>
                 </table>
 
-                <p class="hero-copy">
-                  Hello {{ customer.first_name }}, we've received your order and it's now being prepared.
-                  We'll send a confirmation with tracking as soon as it's on the way.
-                </p>
+                {% capture hero_copy %}
+                  {% if has_pending_payment %}
+                    {% if buyer_action_required %}
+                      Hello {{ customer.first_name }}, you'll get a confirmation email as soon as your payment is complete.
+                    {% else %}
+                      Hello {{ customer.first_name }}, your payment is being processed. We'll email you once your order is confirmed.
+                    {% endif %}
+                  {% else %}
+                    {% if requires_shipping %}
+                      {% case delivery_method %}
+                        {% when 'pick-up' %}
+                          Hello {{ customer.first_name }}, we've received your order and it's being prepared for pickup. We'll email you when it's ready.
+                        {% when 'local' %}
+                          Hello {{ customer.first_name }}, we're getting your order ready for delivery.
+                        {% else %}
+                          Hello {{ customer.first_name }}, we've received your order and it's now being prepared. We'll send a confirmation with tracking as soon as it's on the way.
+                      {% endcase %}
+                    {% else %}
+                      Hello {{ customer.first_name }}, we've received your order and it's being prepared.
+                    {% endif %}
+                  {% endif %}
+                {% endcapture %}
+                <p class="hero-copy">{{ hero_copy | strip_newlines | strip }}</p>
+
+                {% if delivery_instructions != blank %}
+                  <p class="hero-note"><strong>Delivery notes:</strong> {{ delivery_instructions }}</p>
+                {% endif %}
+
+                {% if consolidated_estimated_delivery_time %}
+                  <p class="hero-note">Estimated delivery: <strong>{{ consolidated_estimated_delivery_time }}</strong></p>
+                {% endif %}
+
+                {% assign transaction_count = transactions | size %}
+                {% if transaction_count > 0 %}
+                  {% for transaction in transactions %}
+                    {% if transaction.show_buyer_pending_payment_instructions? %}
+                      <p class="hero-note">{{ transaction.buyer_pending_payment_notice }}</p>
+                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="pending-payment-table">
+                        <tr>
+                          {% for instruction in transaction.buyer_pending_payment_instructions %}
+                            <td>{{ instruction.header }}</td>
+                          {% endfor %}
+                          <td>Amount</td>
+                        </tr>
+                        <tr>
+                          {% for instruction in transaction.buyer_pending_payment_instructions %}
+                            <td>{{ instruction.value }}</td>
+                          {% endfor %}
+                          <td>{{ transaction.amount | money }}</td>
+                        </tr>
+                      </table>
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
 
                 {% if order_status_url %}
                   <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
@@ -322,10 +399,22 @@
                         <td class="totals-value">{% if shipping_price > 0 %}{{ shipping_price | money }}{% else %}Free{% endif %}</td>
                       </tr>
                     {% endif %}
+                    {% if total_duties %}
+                      <tr class="totals-row">
+                        <td>Duties</td>
+                        <td class="totals-value">{{ total_duties | money }}</td>
+                      </tr>
+                    {% endif %}
                     <tr class="totals-row">
                       <td>Taxes</td>
                       <td class="totals-value">{{ tax_price | money }}</td>
                     </tr>
+                    {% if total_tip and total_tip > 0 %}
+                      <tr class="totals-row">
+                        <td>Tip</td>
+                        <td class="totals-value">{{ total_tip | money }}</td>
+                      </tr>
+                    {% endif %}
                     <tr class="totals-row totals-row--total">
                       <td>Total</td>
                       <td class="totals-value">{{ total_price | money_with_currency }}</td>
@@ -333,6 +422,24 @@
                   </table>
                 </div>
               </div>
+
+              {% assign gift_card_line_items = line_items | where: "gift_card" %}
+              {% if gift_card_line_items.first %}
+                {% assign found_gift_card_with_recipient_email = false %}
+                {% for line_item in gift_card_line_items %}
+                  {% if line_item.properties["__shopify_send_gift_card_to_recipient"] and line_item.properties["Recipient email"] %}
+                    {% assign found_gift_card_with_recipient_email = true %}
+                    {% break %}
+                  {% endif %}
+                {% endfor %}
+                <div class="note-box">
+                  {% if found_gift_card_with_recipient_email %}
+                    Your gift card recipient will receive a separate email with their gift card code.
+                  {% else %}
+                    You'll receive a separate email for any gift cards in this order.
+                  {% endif %}
+                </div>
+              {% endif %}
             </td>
           </tr>
 
